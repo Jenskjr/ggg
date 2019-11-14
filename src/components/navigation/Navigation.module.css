@@ -1,0 +1,13 @@
+.navigation {
+    display: flex;
+}
+
+.navButton {
+    padding: 1rem;
+    text-decoration: none;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
