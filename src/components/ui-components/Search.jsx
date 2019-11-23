@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-const Search = () => {
+const Search = props => {
 
     return (
         <div className={container()}>
-            <input type="text" placeholder="Indtast din søgning ..."/>
+            <input type="text" placeholder={props.lang.typeYourSearch}/>
         </div>
     )
 }
@@ -21,10 +22,14 @@ const container = () => css`
         margin-right: auto;
         width: 100%; 
         padding: 0.5rem;
-        border: 2px solid lightgrey;
-        border-radius: 4px
-        
+        border: 1px solid lightgrey;
       }
 `
 
-export default Search
+const mapStateToProps = state => {
+    return {
+        lang: state.lang
+    };
+};
+
+export default connect(mapStateToProps)(Search)

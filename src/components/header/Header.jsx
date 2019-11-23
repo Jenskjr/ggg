@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Search from '../ui-components/Search'
+import NavMobile from '../navigation/NavMobile'
 // css 
 import { css } from 'emotion';
-import { MagnifyIcon } from 'mdi-react'
+import { MagnifyIcon, MenuIcon, SeatLegroomReducedIcon } from 'mdi-react'
 
 const Header = () => {
-    const [search, setSearch] = useState(false);
+    const [nav, setNav] = useState(false);
 
     return (
       <>
@@ -17,9 +18,10 @@ const Header = () => {
           <div className="title">
             Gennem gode gerninger
           </div>
-            <MagnifyIcon onClick={() => setSearch(!search)} /> 
+            <MenuIcon onClick={() => setNav(!nav)}/>
       </header>
-      {search && <Search/>}
+      {nav && <NavMobile/>}
+      {/* {search && <Search/>} */}
       </>
       
     ) 

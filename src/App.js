@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Provider } from 'react-redux';
+import store from './store/store';
 // router
 import {
   BrowserRouter as Router,
@@ -18,7 +19,7 @@ import AlleNGOer from './components/page1/AlleNGOer'
 import TidligereSoegte from './components/page2/TidligereSoegte'
 import StoettetFoer from './components/page3/StoettetFoer'
 import DetailedList from './components/detailedList/DetailedList'
-import DetailsView from './components/ui-components/DetailsView'
+import DetailsView from './components/details/DetailsView'
 import Frontpage from './components/page0/Frontpage'
 
 function App() {
@@ -41,4 +42,5 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
+export default () => (<Provider store={store}><App/></Provider>);
