@@ -1,0 +1,13 @@
+
+.navButton {
+    padding: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid lightgrey;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: 0.8rem; 
+}
