@@ -23,7 +23,6 @@ const DetailedList = () => {
 
     return (
         <div className={container()}>
-            <Search />
             <div className="header">
                 <div className="left">
                     Projekter

@@ -8,6 +8,7 @@ const ScrollView = props => {
 
 const container = () => css`
     overflow-y: 'scroll';
+    background-color: whiteSmoke;
 `
 
 export default ScrollView

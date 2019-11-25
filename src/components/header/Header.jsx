@@ -8,20 +8,24 @@ import { MagnifyIcon, MenuIcon, SeatLegroomReducedIcon } from 'mdi-react'
 
 const Header = () => {
     const [nav, setNav] = useState(false);
+    const [search, setSearch] = useState(false);
 
     return (
       <>
       <header className={container()}>
-           <Link className="link" to="/">
-              <img src="/media/logos/logggo.png" alt=""/>
-            </Link>
+        <MenuIcon onClick={() => setNav(!nav)}/>
           <div className="title">
-            Gennem gode gerninger
+            {/* <Link className="link" to="/">
+              <img src="/media/logos/logggo.png" alt=""/>
+            </Link> */}
+            <Link className="link" to="/">
+              Gennem gode gerninger
+            </Link>
           </div>
-            <MenuIcon onClick={() => setNav(!nav)}/>
+            <MagnifyIcon onClick={() => setSearch(!search)}/> 
       </header>
-      {nav && <NavMobile/>}
-      {/* {search && <Search/>} */}
+      {search && <Search/>}
+      {nav && <NavMobile setNav={setNav}/>}
       </>
       
     ) 
@@ -51,6 +55,8 @@ const container = () => css`
   }
 
   a { 
+    text-decoration: none;
+    color: black;
     padding: 0;
     margin: 0;
   }

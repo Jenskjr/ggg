@@ -11,8 +11,10 @@ const InfoBox = props => {
         <div className={container()}>
             {props.open && 
                 <div className={`modal ${props.type}`}>
-                    <h2>{props.title}</h2>
-                    <p>{props.content}</p>
+                    <div className="content">
+                        <h2>{props.title}</h2>
+                        <p>{props.content}</p>
+                    </div>
                 </div>}
             {timeDelay(10000)}
         </div>
@@ -20,7 +22,7 @@ const InfoBox = props => {
 }
 
 const container = () => css`
-    @keyframes slideInFromTop {
+    @keyframes slideInFromLeft {
         0% {
         transform: translateY(-100%);
         }
@@ -36,22 +38,26 @@ const container = () => css`
         top: 0;
         width: 100%; 
         overflow: auto; 
-        background-color: blue; 
-        padding: 1rem;
-        animation: 1s ease-out 0s 1 slideInFromTop;
+        background-color: white; 
+        border: 1px solid lightgrey;
+        animation: 1s ease-out 0s 1 slideInFromLeft;
         color: grey;
+
+        .content {
+            padding: 1rem; 
+        }
     }
 
     .success {
-        background-color: lightgreen;
+        color: green;
     }
     
     .warning {
-        background-color: lightyellow;
+        color: yellow;
     }
 
     .error {
-        background-color: #fef3f4;
+        color: red;
     }
 `
 
