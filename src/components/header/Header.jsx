@@ -12,17 +12,18 @@ const Header = () => {
 
     return (
       <>
+      
       <header className={container()}>
-        <MenuIcon onClick={() => setNav(!nav)}/>
-          <div className="title">
-            {/* <Link className="link" to="/">
-              <img src="/media/logos/logggo.png" alt=""/>
-            </Link> */}
-            <Link className="link" to="/">
-              Gennem gode gerninger
-            </Link>
-          </div>
-            <MagnifyIcon onClick={() => setSearch(!search)}/> 
+        <Link className="link" to="/">
+          <img src="/media/logos/logggo.png" alt=""/>
+        </Link>
+        <div className="title">    
+          <Link className="link" to="/">
+            Gennem gode gerninger
+          </Link>
+        </div>
+          <MagnifyIcon onClick={() => setSearch(!search)}/> 
+          <MenuIcon onClick={() => setNav(!nav)}/>
       </header>
       {search && <Search/>}
       {nav && <NavMobile setNav={setNav}/>}
@@ -38,7 +39,7 @@ const container = () => css`
 
   .title {
     color: grey;
-    font-size: 1rem;
+    font-size: 0.8rem;
     width: 100%;
     text-align: center;
   }

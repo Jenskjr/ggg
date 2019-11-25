@@ -38,7 +38,7 @@ const DetailedList = () => {
                                 <div className="one">
                                     <Link to={`/details/${project.id}`}>
                                         <img src={`/media/images/${project.image}`} alt="" />
-                                    </Link> 
+                                    </Link>
                                 </div>
                             </div>
                             <div className="right">
