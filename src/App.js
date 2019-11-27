@@ -2,11 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Provider } from 'react-redux';
 import store from './store/store';
 // router
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 // css
 import './App.css';
 // components
@@ -45,7 +41,7 @@ function App() {
 
   return (
     <>
-    <Router>
+    <HashRouter>
       <div className="App">
           <Header/>
           <Main>
@@ -59,7 +55,7 @@ function App() {
             </Switch>
           </Main>
       </div>
-    </Router>
+    </HashRouter>
     {showInstallMessage && <AddToHomeScreen/>}
     </>
   );
