@@ -12,21 +12,7 @@ import content from '../../content/content'
 const StoettetFoer = (props, {count, dispatch}) => {
     return (  
         <div className={styles.container}>
-            {/* {props.count}
-            <button onClick={() => props.increment()}>Hest</button>
-            <button onClick={() => props.decrement()}>Ko</button> */}
-            {/* {handleSomething()} */}
-             {content.filter(content => content.supportedBefore).map((content, index) => 
-                <ListView key={index}>
-                    <ListItem 
-                        left={"/media/logos/" + content.logo} 
-                        center={content.title} 
-                        contentId={content.id}
-                        link={"detailed-list"}
-                        height="8rem">
-                    </ListItem>
-                </ListView>
-            )}
+          Content
 
         </div>
     )

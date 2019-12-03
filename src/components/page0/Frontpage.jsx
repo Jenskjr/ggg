@@ -9,7 +9,7 @@ import ScrollView from '../ui-components/ScrollView';
 
 const Example = props => {
 
-    const tabs = [props.lang.allNGOs, props.lang.previousSearches, props.lang.supportedBefore]
+    const tabs = [props.lang.NGOs, props.lang.categories, props.lang.developmentGoals]
     const content = [<Page1/>, <Page2/>, <Page3/>]
     return (
         <>

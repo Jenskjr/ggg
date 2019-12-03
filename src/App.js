@@ -50,7 +50,7 @@ function App() {
               <Route path="/tidligere-søgte" component={TidligereSoegte}/>
               <Route path="/støttet-før" component={StoettetFoer}/>
               <Route path="/detailed-list/:id" component={DetailedList}/>
-              <Route path="/details/:id" component={DetailsView}/>
+              <Route path="/details/:organizationId/:id" component={DetailsView}/>
               <Route path="/" component={Frontpage} /> 
             </Switch>
           </Main>

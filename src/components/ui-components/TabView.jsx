@@ -34,6 +34,7 @@ const container = () => css`
     .tab {
         padding: 1rem;
         // border: 1px solid grey;
+        width: 33.33%;
     }
 
     .active {

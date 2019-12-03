@@ -12,17 +12,9 @@ import content from '../../content/content'
 const TidligereSoegte = () => {
     return (
         <div className={styles.container}>
-        {content.filter(content => content.searchedBefore).map((content, index) => 
-                <ListView key={index}>
-                    <ListItem 
-                        left={"/media/logos/" + content.logo} 
-                        center={content.title} 
-                        contentId={content.id}
-                        link={"detailed-list"}
-                        height="8rem">
-                    </ListItem>
-                </ListView>
-            )}
+      
+              <div>Content</div>
+      
         </div>
     )
     

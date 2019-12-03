@@ -15,7 +15,7 @@ const Header = () => {
       
       <header className={container()}>
         <Link className="link" to="/">
-          <img src="/media/logos/logggo.png" alt=""/>
+          <img className="logo" src="/media/logos/logggo.png" alt=""/>
         </Link>
         <div className="title">    
           <Link className="link" to="/">
@@ -34,8 +34,9 @@ const Header = () => {
 
 const container = () => css`
   display: flex;
-  padding: 0.5rem;
+  padding: 0.25rem;
   border-bottom: 1px solid lightgrey;
+  background-color: white;
 
   .title {
     color: grey;
@@ -62,10 +63,11 @@ const container = () => css`
     margin: 0;
   }
 
-  svg {
+  svg, .logo {
     color: grey;
     margin-left: auto;
-    margin-right: 1rem;
+    margin: 0 0.25rem 0 0.25rem;
+    padding: 0.25rem;
   }
 `
  

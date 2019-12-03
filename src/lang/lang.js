@@ -1,18 +1,20 @@
 export default {
     english: {
-        allNGOs: "All NGO's",
-        previousSearches: "Previous searches",
-        supportedBefore: "Supported before",
+        NGOs: "NGO's",
+        categories: "Categories",
+        developmentGoals: "Development goals",
         login: "log in",
         logout: "log out",
-        typeYourSearch: "Type your search"
+        typeYourSearch: "Type your search",
+        thereAreNoProjectsAtTheMoment: "There are no projects at the moment"
     }, 
     danish: {
-        allNGOs: "Alle NGO'er",
-        previousSearches: "Tidligere Søgte",
-        supportedBefore: "Støttet før",
+        NGOs: "NGO'er",
+        categories: "Områder",
+        developmentGoals: "FN's verdensmål",
         login: "log ind",
         logout: "log ud",
-        typeYourSearch: "Indtast din søgning"
+        typeYourSearch: "Indtast din søgning",
+        thereAreNoProjectsAtTheMoment: "Der er desværre i øjeblikket ingen projekter"
     }
 }

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 // css
 import { css } from 'emotion';
 // data
@@ -10,10 +12,11 @@ import FormButton from '../ui-components/FormButton'
 import Checkbox from '../ui-components/CheckboxInput'
 import Checkout from '../checkout/Checkout'
 import InfoBox from '../ui-components/InfoBox'
+import ScrollView from './../ui-components/ScrollView'
 
 
 const DetailsView = props => {
-  
+  const [thisContent, setThisContent] = useState([])
   const [project, setProject] = useState([])
   const [checkout, setCheckout] = useState(false)
   const [formData, setFormData] = useState({fradrag: true, paymentOption: "Monthly", amount: 350})
@@ -21,19 +24,26 @@ const DetailsView = props => {
   const [infoOpen, setInfoOpen] = useState(false)
   
   useEffect(() => {
-    getProject()
+    splitUrl()
   }, [])
 
   useEffect(() => {
     validateForm()
   }, [formData])
 
-  const getProject = () => {
-    const projectId = window.location.href.split("details/")[1];
+  const splitUrl = () => {
+    const array = window.location.href.split("/");
+    const projectId = array[array.length - 1];
+    const organizationId = array[array.length - 2]
+    
+    getProject(projectId);
+    getContent(organizationId);
+  }
 
+  const getProject = projectId => {
     content.forEach(content => {
       let projects = content.projects;
-      if (projects && projects.length > 0) {
+      if (projects && projects.length) {
         projects.forEach(project => {
           if (project.id.toString() === projectId.toString()) {
             setProject(project);
@@ -41,6 +51,14 @@ const DetailsView = props => {
         })
       }
     })
+  }
+
+  const getContent = contentId => {
+    content.forEach(content => {
+      if (contentId.toString() === content.id.toString()) {
+          setThisContent(content)
+      }
+  })
   }
 
   const handleFormChange = e => {
@@ -62,9 +80,19 @@ const DetailsView = props => {
   }
 
   return (
-      <div className={container()}>
+        <div className={container()}>
         {!checkout &&
           <>
+            <div>
+              <Link to={`/`}>
+                <div className="organization"><img src={`/media/logos/${thisContent.logo}`} alt="" /><h4>{thisContent.title}</h4></div>
+              </Link>
+            </div>
+            <div>
+              <Link to={`/detailed-list/${thisContent.organizationId}`}>
+                <div className="organization"><img src={`/media/images/${project.image}`} alt="" /><h4>{project.title}</h4></div>
+              </Link>
+            </div>
             <div className="top">
               <div className="left">
                   <h4>{`${project.organization} ${project.title}`}</h4>
@@ -143,15 +171,39 @@ const DetailsView = props => {
       }
 
       </div>
+      
     )
 }
 
+const mapStateToProps = state => {
+  return {
+      lang: state.lang
+  };
+};
+
 const container = () => css`
-  padding: 1rem;
   font-size: 0.8rem;
   
+  .organization {
+    background-color: white;
+    display: flex;
+    margin: 1rem 0 1rem 0;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid lightgrey;
+    height: 2rem;
+    align-items: center;
+
+    img {
+        max-height: 100%;
+        padding-right: 1rem;
+    }
+  }
+
   .top {
     display: flex;
+    // border: 1px solid grey;
+    padding: 0.75rem;
+    background-color: white;
 
     .left {
       max-width: 66%;
@@ -167,9 +219,15 @@ const container = () => css`
   }
 
   .bottom {
+    background-color: white;
+    
+    .box {
+      
+    }
     color: grey;
     margin-top: 1rem;
     padding: 1rem;
+    margin: 0.75rem;
     background-color: #fef3f4;
   
     .one {
@@ -193,8 +251,13 @@ const container = () => css`
   label {
     margin-right: 1rem;
   }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
   
 
 `
 
-export default DetailsView;
+export default connect(mapStateToProps)(DetailsView);

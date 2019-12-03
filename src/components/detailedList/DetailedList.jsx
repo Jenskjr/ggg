@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import content from '../../content/content'
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import Search from '../ui-components/Search'
+import { connect } from 'react-redux';
+// components
+import ScrollView from './../ui-components/ScrollView'
 
-const DetailedList = () => {
+const DetailedList = props => {
 
     let [thisContent, setThisContent] = useState([]);
 
@@ -23,20 +25,18 @@ const DetailedList = () => {
 
     return (
         <div className={container()}>
-            <div className="header">
-                <div className="left">
-                    Projekter
-                </div>
-                <div className="right">Partnere</div>
-            </div>
-            {!thisContent.projects && <p className="disclamer">Der er desværre i øjeblikket ingen projekter.</p>}
+            <Link to={`/`}>
+                <div className="organization"><img src={`/media/logos/${thisContent.logo}`} alt="" /><h4>{thisContent.title}</h4></div>
+            </Link>
 
-            {thisContent.projects && thisContent.projects.length > 0 && thisContent.projects.map((project, index) => 
+            {!thisContent.projects && <p className="disclamer">{props.lang.thereAreNoProjectsAtTheMoment}</p>}
+
+            {thisContent.projects && thisContent.projects.length && thisContent.projects.map((project, index) => 
                 <>
                     <div className="body">
                             <div className="left">
                                 <div className="one">
-                                    <Link to={`/details/${project.id}`}>
+                                    <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
                                         <img src={`/media/images/${project.image}`} alt="" />
                                     </Link>
                                 </div>
@@ -48,7 +48,7 @@ const DetailedList = () => {
                             </div>
                     </div>
                     <div className="two">
-                        <Link to={`/details/${project.id}`}>
+                        <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
                             <h4>{project.title}</h4>
                             <div>{project.description}</div>
                         </Link>
@@ -59,8 +59,16 @@ const DetailedList = () => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        lang: state.lang
+    };
+};
+
 const container = () => css`
     font-size: 0.8rem;
+    border: 1px solid grey;
+    background-color: white;
 
     .header, .body {
         display: flex;
@@ -72,27 +80,23 @@ const container = () => css`
         padding: 1rem;
     }
 
-    .header {
-        border-bottom: 1px solid lightgrey;
-        color: grey; 
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        
-        .left {
-            // border: 1px solid grey;
-            width: 60%;
-            text-align: center;   
-        }
+    .organization {
+        display: flex;
+        margin: 1rem 0 1rem 0;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid lightgrey;
+        height: 2rem;
+        align-items: center;
 
-        .right {
-            // border: 1px solid grey;
-            width: 40%;
-            text-align: center;  
+        img {
+            max-height: 100%;
+            padding-right: 1rem;
         }
     }
 
     .body {
         padding: 1rem;
+        // border: 1px solid grey; 
         
         .left {
             width: 60%;
@@ -131,6 +135,4 @@ const container = () => css`
 
 
 `
-    
-
-export default DetailedList;
+export default connect(mapStateToProps)(DetailedList)
