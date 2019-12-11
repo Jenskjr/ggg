@@ -86,7 +86,7 @@ const DetailsView = props => {
           <div>
             <Link to={`/`}>
               <div className="overview">
-                <img src={`/media/logos/${thisContent.logo}`} alt="" />
+                <img src={`./media/logos/${thisContent.logo}`} alt="" />
                 <h4>{thisContent.title}</h4>
               </div>
             </Link>
@@ -94,7 +94,7 @@ const DetailsView = props => {
           <div>
             <Link to={`/detailed-list/${thisContent.organizationId}`}>
               <div className="overview">
-                <img src={`/media/images/${project.image}`} alt="" />
+                <img src={`./media/images/${project.image}`} alt="" />
                 <h4>{project.title}</h4>
               </div>
             </Link>
@@ -105,7 +105,7 @@ const DetailsView = props => {
               {project.description}
             </div>
             <div className="right">
-              <img src={`/media/logos/supporters/${project.logo}`} alt="" />
+              <img src={`./media/logos/supporters/${project.logo}`} alt="" />
             </div>
           </div>
 
@@ -114,7 +114,7 @@ const DetailsView = props => {
               project.devGoals.map((goal, index) => (
                 <img
                   key={index}
-                  src={`/media/logos/dev-goals/${goal}.gif`}
+                  src={`./media/logos/dev-goals/${goal}.gif`}
                   alt=""
                 />
               ))}

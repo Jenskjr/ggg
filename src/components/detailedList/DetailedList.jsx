@@ -24,7 +24,7 @@ const DetailedList = props => {
     <div className={container()}>
       <Link to={`/`}>
         <div className="organization">
-          <img src={`/media/logos/${thisContent.logo}`} alt="" />
+          <img src={`./media/logos/${thisContent.logo}`} alt="" />
           <h4>{thisContent.title}</h4>
         </div>
       </Link>
@@ -43,7 +43,7 @@ const DetailedList = props => {
                   <Link
                     to={`/details/${thisContent.organizationId}/${project.id}`}
                   >
-                    <img src={`/media/images/${project.image}`} alt="" />
+                    <img src={`./media/images/${project.image}`} alt="" />
                   </Link>
                 </div>
               </div>
@@ -53,7 +53,10 @@ const DetailedList = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={"/media/logos/supporters/" + project.logo} alt="" />
+                  <img
+                    src={"./media/logos/supporters/" + project.logo}
+                    alt=""
+                  />
                 </a>
               </div>
             </div>
@@ -77,7 +80,6 @@ const mapStateToProps = state => {
 
 const container = () => css`
   font-size: 0.8rem;
-  border: 1px solid grey;
   background-color: white;
 
   .header,
