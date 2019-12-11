@@ -23,6 +23,7 @@ const TabView = props => {
 }
 
 const container = () => css`
+    background-color: white;
 
     .tabs {
         display: flex;
