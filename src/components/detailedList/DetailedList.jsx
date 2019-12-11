@@ -23,8 +23,13 @@ const DetailedList = props => {
   return (
     <div className={container()}>
       <Link to={`/`}>
+<<<<<<< HEAD
         <div className="organization">
           <img src={`./media/logos/${thisContent.logo}`} alt="" />
+=======
+        <div className="overview">
+          <img src={`/media/logos/${thisContent.logo}`} alt="" />
+>>>>>>> 9d9dd96156f5b2640603b359be3604aac8c40944
           <h4>{thisContent.title}</h4>
         </div>
       </Link>
@@ -36,8 +41,8 @@ const DetailedList = props => {
       {thisContent.projects &&
         thisContent.projects.length &&
         thisContent.projects.map((project, index) => (
-          <>
-            <div className="body">
+          <div className="list-item">
+            <div className="side-by-side">
               <div className="left">
                 <div className="one">
                   <Link
@@ -48,6 +53,7 @@ const DetailedList = props => {
                 </div>
               </div>
               <div className="right">
+                <h4>Støttet af:</h4> 
                 <a
                   href={thisContent.projects[index].url}
                   target="_blank"
@@ -60,13 +66,13 @@ const DetailedList = props => {
                 </a>
               </div>
             </div>
-            <div className="two">
+            <div className="description">
               <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
                 <h4>{project.title}</h4>
                 <div>{project.description}</div>
               </Link>
             </div>
-          </>
+          </div>
         ))}
     </div>
   );
@@ -80,23 +86,28 @@ const mapStateToProps = state => {
 
 const container = () => css`
   font-size: 0.8rem;
+<<<<<<< HEAD
   background-color: white;
+=======
+>>>>>>> 9d9dd96156f5b2640603b359be3604aac8c40944
 
-  .header,
-  .body {
+  .header {
     display: flex;
   }
 
   .disclamer {
     text-align: center;
     padding: 1rem;
+    height: 100vh;
   }
 
-  .organization {
+  .overview {
+    background-color: white;
     display: flex;
     margin: 1rem 0 1rem 0;
     padding: 0.5rem 0.75rem;
-    border: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     height: 2rem;
     align-items: center;
 
@@ -106,32 +117,45 @@ const container = () => css`
     }
   }
 
-  .body {
-    padding: 1rem;
-    // border: 1px solid grey;
-
-    .left {
-      width: 60%;
-      margin-right: 0.8rem;
-      overflow-y: hidden;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    .right {
-      width: 40%;
-      img {
-        width: 100%;
-      }
-    }
-  }
-
-  .two {
-    padding: 0 1rem 1rem 1rem;
+  .list-item {
+    background-color: white;
+    border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
+    margin-bottom: -1px;
+
+    .side-by-side {
+      display: flex;
+      padding: 1rem;
+
+      .left {
+        width: 60%;
+        margin-right: 0.8rem;
+        overflow-y: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .right {
+        text-align: center;
+        width: 40%;
+
+        h4 {
+          padding-bottom: 0.5rem;
+        }
+
+        img {
+          width: 70%;
+        }
+      }
+    }
+      
+    .description {
+      padding: 1rem;
+    }
   }
+
 
   a {
     text-decoration: none;

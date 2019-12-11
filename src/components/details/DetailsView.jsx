@@ -99,6 +99,7 @@ const DetailsView = props => {
               </div>
             </Link>
           </div>
+        <div className="container">       
           <div className="top">
             <div className="left">
               <h4>{`${project.organization} ${project.title}`}</h4>
@@ -119,7 +120,6 @@ const DetailsView = props => {
                 />
               ))}
           </div>
-
           <div className="bottom">
             <div className="amount">
               <input
@@ -188,6 +188,7 @@ const DetailsView = props => {
               label="Støt nu - Fortsæt til betaling"
             />
           </div>
+        </div>
           {!validForm && (
             <InfoBox
               open={infoOpen}
@@ -233,64 +234,68 @@ const container = () => css`
     }
   }
 
-  .top {
-    display: flex;
-    // border: 1px solid grey;
-    padding: 0.75rem;
+  .container {
     background-color: white;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
 
-    .left {
-      max-width: 66%;
-    }
 
-    .right {
-      margin-left: 1rem;
-      width: 33%;
-      img {
-        width: 100%;
-      }
-    }
-  }
-
-  .devGoals {
-    margin: 1rem 1rem;
-    max-height: 3rem;
-
-    img {
-      max-height: 3rem;
-    }
-  }
-
-  .bottom {
-    background-color: white;
-
-    .box {
-    }
-    color: grey;
-    margin-top: 1rem;
-    padding: 1rem;
-    margin: 0.75rem;
-    background-color: #fef3f4;
-
-    .amount {
+    .top {
       display: flex;
-      align-items: center;
+      // border: 1px solid grey;
+      padding: 0.75rem;
+      background-color: white;
 
-      div:first-child {
-        width: 80%;
+      .left {
+        max-width: 66%;
       }
 
-      div:last-child {
-        margin-left: auto;
-
-        input {
-          align-items: right;
+      .right {
+        margin-left: 1rem;
+        width: 33%;
+        img {
+          width: 100%;
         }
       }
     }
 
-    input {
-      margin: 0.75rem 0 0.75rem 0;
+    .devGoals {
+      margin: 1rem 1rem;
+      max-height: 3rem;
+
+      img {
+        max-height: 3rem;
+      }
+    }
+
+    .bottom {
+      background-color: white;
+      color: grey;
+
+      margin: 1rem;
+      padding: 1rem;
+      background-color: #fef3f4;
+
+      .amount {
+        display: flex;
+        align-items: center;
+
+        div:first-child {
+          width: 80%;
+        }
+
+        div:last-child {
+          margin-left: auto;
+
+          input {
+            align-items: right;
+          }
+        }
+      }
+
+      input {
+        margin: 0.75rem 0 0.75rem 0;
+      }
     }
   }
 
@@ -329,6 +334,7 @@ const container = () => css`
     -moz-border-radius: 10px;
     border-radius: 10px;
   }
+
 `;
 
 export default connect(mapStateToProps)(DetailsView);

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styles from "./Categories.module.css";
 
 const StoettetFoer = (props, { count, dispatch }) => {
-  return <div className={styles.container}>Content</div>;
+  return <div className={styles.container}></div>;
 };
 
 const mapStateToProps = state => {

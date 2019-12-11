@@ -16,7 +16,7 @@ import {
 import './App.css';
 // components
 import AddToHomeScreen from './components/ui-components/AddToHomeScreen';
-
+import { css } from "emotion";
 
 // components
 import Header from './components/header/Header'
@@ -48,60 +48,29 @@ function App() {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  return ( <
-      >
-      <
-      HashRouter >
-      <
-      div className = "App" >
-      <
-      Header / >
-      <
-      Main >
-      <
-      Switch >
-      <
-      Route path = "/alle-ngoer"
-      component = {
-        AlleNGOer
-      }
-      /> <
-      Route path = "/tidligere-søgte"
-      component = {
-        TidligereSoegte
-      }
-      /> <
-      Route path = "/støttet-før"
-      component = {
-        StoettetFoer
-      }
-      /> <
-      Route path = "/detailed-list/:id"
-      component = {
-        DetailedList
-      }
-      /> <
-      Route path = "/details/:organizationId/:id"
-      component = {
-        DetailsView
-      }
-      /> <
-      Route path = "/"
-      component = {
-        Frontpage
-      }
-      />  < /
-      Switch > <
-      /Main> < /
-      div > <
-      /HashRouter> {
-      showInstallMessage && < AddToHomeScreen / >
-    } <
-    />
-);
-}
+  return ( <div className={container()}>
+      <HashRouter >
+        <div className = "App" >
+          <Header />
+          <Main>
+            <Switch >
+              <Route path = "/alle-ngoer" component = {AlleNGOer}/> 
+              <Route path = "/tidligere-søgte" component = {TidligereSoegte}/> 
+              <Route path = "/støttet-før" component = {StoettetFoer}/> 
+              <Route path = "/detailed-list/:id" component = {DetailedList}/> 
+              <Route path = "/details/:organizationId/:id" component = {DetailsView}/> 
+              <Route path = "/" component = {Frontpage}/>  
+              </Switch > 
+            </Main>
+          </div > 
+        </HashRouter> {showInstallMessage && < AddToHomeScreen />
+    } 
+  </div>
+  );}
+
+const container = () => css`
+  background-color: whiteSmoke;
+`
 
 // export default App;
-export default () => ( < Provider store = {
-    store
-  } > < App / > < /Provider>);
+export default () => ( <Provider store = { store } > <App /> </Provider>);
