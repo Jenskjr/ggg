@@ -1,36 +1,34 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Search from '../ui-components/Search'
-import NavMobile from '../navigation/NavMobile'
-// css 
-import { css } from 'emotion';
-import { MagnifyIcon, MenuIcon, SeatLegroomReducedIcon } from 'mdi-react'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Search from "../ui-components/Search";
+import NavMobile from "../navigation/NavMobile";
+// css
+import { css } from "emotion";
+import { MagnifyIcon, MenuIcon } from "mdi-react";
 
 const Header = () => {
-    const [nav, setNav] = useState(false);
-    const [search, setSearch] = useState(false);
+  const [nav, setNav] = useState(false);
+  const [search, setSearch] = useState(false);
 
-    return (
-      <>
-      
+  return (
+    <>
       <header className={container()}>
         <Link className="link" to="/">
-          <img className="logo" src="/media/logos/logggo.png" alt=""/>
+          <img className="logo" src="/media/logos/logggo.png" alt="" />
         </Link>
-        <div className="title">    
+        <div className="title">
           <Link className="link" to="/">
             Gennem gode gerninger
           </Link>
         </div>
-          <MagnifyIcon onClick={() => setSearch(!search)}/> 
-          <MenuIcon onClick={() => setNav(!nav)}/>
+        <MagnifyIcon onClick={() => setSearch(!search)} />
+        <MenuIcon onClick={() => setNav(!nav)} />
       </header>
-      {search && <Search/>}
-      {nav && <NavMobile setNav={setNav}/>}
-      </>
-      
-    ) 
-}
+      {search && <Search />}
+      {nav && <NavMobile setNav={setNav} />}
+    </>
+  );
+};
 
 const container = () => css`
   display: flex;
@@ -40,14 +38,15 @@ const container = () => css`
 
   .title {
     color: grey;
-    font-size: 0.8rem;
+    font-size: 1.2 rem;
     width: 100%;
     text-align: center;
+    line-height: 2rem;
   }
 
   img {
-    // border: 1px solid grey; 
-    padding:  0 1rem 0 1rem; 
+    // border: 1px solid grey;
+    padding: 0 1rem 0 1rem;
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -56,20 +55,20 @@ const container = () => css`
     margin-left: auto;
   }
 
-  a { 
+  a {
     text-decoration: none;
     color: black;
     padding: 0;
     margin: 0;
   }
 
-  svg, .logo {
+  svg,
+  .logo {
     color: grey;
     margin-left: auto;
     margin: 0 0.25rem 0 0.25rem;
     padding: 0.25rem;
   }
-`
- 
+`;
 
 export default Header;

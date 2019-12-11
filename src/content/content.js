@@ -1,5 +1,4 @@
-export default [
-    {
+export default [{
         id: 2,
         organizationId: 2,
         logo: "logo_røde_kors.png",
@@ -8,25 +7,26 @@ export default [
         image: "Image",
         url: "http://rodekors.dk",
         searchedBefore: true,
-        projects: [
-            {
-                id: 1,
-                logo: "logo_barendsen.png",
-                image: "img_ferielejr.jpg",
-                organization: "Ungdommens Røde Kors",
-                url: "https://www.berendsen.dk/",
-                title: "Ferielejr",
-                description: "Hvert år sender Ungdømmens Røde Kors 1400 børn og unge afsted på sommerlejr. Din donation kan hjælpe børn som ellers ikke har mulighed for at få en ferie til at komme hjem med fantastiske ferieminder."
-            }, {
-                id: 2,
-                logo: "logo_faetter_br.png",
-                image: "img_leg_for_livet.jpg",
-                organization: "Røde Kors",
-                url: "http://br.dk",
-                title: "Leg for livet",
-                description: "Røde kors vil give legen en større chance og hjælpe de børn og børnefamilier, som har det svært herhjemme og ude i verden. Dete kan din donation hjælpe med at gøre til virkelighed."
-            }
-        ]
+        projects: [{
+            id: 1,
+            logo: "logo_barendsen.png",
+            image: "img_ferielejr.jpg",
+            organization: "Ungdommens Røde Kors",
+            url: "https://www.berendsen.dk/",
+            title: "Ferielejr",
+            description: "Hvert år sender Ungdømmens Røde Kors 1400 børn og unge afsted på sommerlejr. Din donation kan hjælpe børn som ellers ikke har mulighed for at få en ferie til at komme hjem med fantastiske ferieminder.",
+            devGoals: [1, 2, 3]
+        }, {
+            id: 2,
+            logo: "logo_faetter_br.png",
+            image: "img_leg_for_livet.jpg",
+            organization: "Røde Kors",
+            url: "http://br.dk",
+            title: "Leg for livet",
+            description: "Røde kors vil give legen en større chance og hjælpe de børn og børnefamilier, som har det svært herhjemme og ude i verden. Dete kan din donation hjælpe med at gøre til virkelighed.",
+            devGoals: [4, 5, 6]
+
+        }]
     },
     {
         id: 1,
@@ -47,5 +47,59 @@ export default [
         text: "Text",
         image: "Image",
         url: "http://noedhjaelp.dk",
+    },
+    {
+        id: 4,
+        organizationId: 4,
+        logo: "logo_læger_uden_grænser.png",
+        title: "læger uden grænser",
+        text: "Text",
+        image: "Image",
+        url: "",
+    },
+    {
+        id: 5,
+        organizationId: 5,
+        logo: "logo_red_barnet.png",
+        title: "Red Barnet",
+        text: "Text",
+        image: "Image",
+        url: "",
+    },
+    {
+        id: 6,
+        organizationId: 6,
+        logo: "logo_sind.png",
+        title: "Sind",
+        text: "Text",
+        image: "Image",
+        url: "",
+    },
+    {
+        id: 7,
+        organizationId: 7,
+        logo: "logo_unicef.png",
+        title: "Unicef",
+        text: "Text",
+        image: "Image",
+        url: "",
+    },
+    {
+        id: 8,
+        organizationId: 8,
+        logo: "logo_wwf.png",
+        title: "Verdensnaturfonden",
+        text: "Text",
+        image: "Image",
+        url: "",
+    },
+    {
+        id: 9,
+        organizationId: 9,
+        logo: "logo_ældresagen.png",
+        title: "Ældresagen",
+        text: "Text",
+        image: "Image",
+        url: "",
     }
 ]
