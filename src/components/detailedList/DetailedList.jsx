@@ -67,7 +67,6 @@ const mapStateToProps = state => {
 
 const container = () => css`
     font-size: 0.8rem;
-    border: 1px solid grey;
     background-color: white;
 
     .header, .body {
