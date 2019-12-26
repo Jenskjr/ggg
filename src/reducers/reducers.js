@@ -3,7 +3,8 @@ import {
     DECREMENT,
     CHANGELANGUAGE,
     SETSEARCHSTRING,
-    RESETSEARCHSTRING
+    RESETSEARCHSTRING,
+    SETSEARCH
 } from '../actions/actions';
 import lang from '../lang/lang'
 
@@ -11,6 +12,7 @@ const initialState = {
     count: 0,
     lang: lang.danish,
     english: false,
+    search: false,
     searchString: ""
 }
 
@@ -39,6 +41,11 @@ function rootReducer(state = initialState, action) {
                     lang: lang.danish,
                     english: false
                 }
+            break;
+        case SETSEARCH:
+            return {
+                ...state, search: action.search
+            }
             break;
         case SETSEARCHSTRING:
             return {

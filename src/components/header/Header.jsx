@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Search from "../ui-components/Search";
 import NavMobile from "../navigation/NavMobile";
+import { connect } from "react-redux";
+import { setSearch } from "../../actions/actions.js";
 // css
 import { css } from "emotion";
 import { MagnifyIcon, MenuIcon } from "mdi-react";
 
-const Header = () => {
+const Header = props => {
   const [nav, setNav] = useState(false);
-  const [search, setSearch] = useState(false);
 
   return (
     <>
@@ -21,13 +22,31 @@ const Header = () => {
             Gennem gode gerninger
           </Link>
         </div>
-        <MagnifyIcon onClick={() => setSearch(!search)} />
+        <MagnifyIcon
+          onClick={() => {
+            props.setSearch(!props.search);
+            props.resetSearchString();
+          }}
+        />
         <MenuIcon onClick={() => setNav(!nav)} />
       </header>
-      {search && <Search />}
+      {props.search && <Search />}
       {nav && <NavMobile setNav={setNav} />}
     </>
   );
+};
+
+const mapStateToProps = state => {
+  return {
+    search: state.search
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSearch: event => dispatch(setSearch(event)),
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
+  };
 };
 
 const container = () => css`
@@ -71,4 +90,4 @@ const container = () => css`
   }
 `;
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

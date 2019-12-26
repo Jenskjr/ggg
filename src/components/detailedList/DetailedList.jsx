@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import content from "../../content/content";
+import { setSearch } from "../../actions/actions.js";
 import { css } from "emotion";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,6 +11,7 @@ const DetailedList = props => {
   useEffect(() => {
     getProjects();
     props.resetSearchString();
+    props.setSearch(false);
   }, []);
 
   const getProjects = () => {
@@ -41,7 +43,6 @@ const DetailedList = props => {
         !props.searchString.length &&
         thisContent.projects.map((project, index) => (
           <div key={index} className="list-item">
-            {console.log(project)}
             <div className="side-by-side">
               <div className="left">
                 <div className="one">
@@ -133,7 +134,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" }),
+    setSearch: event => dispatch(setSearch(event))
   };
 };
 

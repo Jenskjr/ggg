@@ -3,6 +3,7 @@ export const DECREMENT = 'DECREMENT';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const CHANGELANGUAGE = 'CHANGELANGUAGE';
+export const SETSEARCH = 'SETSEARCH';
 export const SETSEARCHSTRING = 'SETSEARCHSTRING';
 export const RESETSEARCHSTRING = 'RESETSEARCHSTRING';
 
@@ -47,5 +48,12 @@ export const setSearchString = (event) => {
 export const resetSearchString = () => {
     return {
         type: RESETSEARCHSTRING
+    }
+}
+
+export const setSearch = (search) => {
+    return {
+        type: SETSEARCH,
+        search: search
     }
 }

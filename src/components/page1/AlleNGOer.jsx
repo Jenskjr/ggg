@@ -9,10 +9,6 @@ import { connect } from "react-redux";
 import content from "../../content/content";
 
 const AlleNGOer = props => {
-  useEffect(() => {
-    props.resetSearchString();
-  }, []);
-
   return (
     <div className={styles.container}>
       {!props.searchString.length &&
@@ -24,6 +20,7 @@ const AlleNGOer = props => {
               contentId={content.id}
               link={"detailed-list"}
               height="8rem"
+              right={true}
             ></ListItem>
           </ListView>
         ))}
@@ -56,10 +53,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AlleNGOer);
+export default connect(mapStateToProps)(AlleNGOer);

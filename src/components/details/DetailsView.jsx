@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { setSearch } from "../../actions/actions.js";
 // css
 import { css } from "emotion";
 // data
@@ -16,6 +17,7 @@ import InfoBox from "../ui-components/InfoBox";
 const DetailsView = props => {
   useEffect(() => {
     props.resetSearchString();
+    props.setSearch(false);
   }, []);
 
   const [thisContent, setThisContent] = useState([]);
@@ -219,6 +221,13 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" }),
+    setSearch: event => dispatch(setSearch(event))
+  };
+};
+
 const container = () => css`
   font-size: 0.8rem;
 
@@ -338,11 +347,5 @@ const container = () => css`
     border-radius: 10px;
   }
 `;
-
-const mapDispatchToProps = dispatch => {
-  return {
-    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsView);

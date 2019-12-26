@@ -16,22 +16,6 @@ const Search = props => {
   );
 };
 
-const container = () => css`
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-
-  input[type="text"] {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    padding: 1rem 0.5rem;
-    border: 1px solid lightgrey;
-    font-size: 1.2rem;
-  }
-`;
-
 const mapStateToProps = state => {
   return {
     lang: state.lang,
@@ -44,5 +28,23 @@ const mapDispatchToProps = dispatch => {
     setSearchString: event => dispatch(setSearchString(event))
   };
 };
+
+const container = () => css`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+
+  input[type="text"] {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+  }
+`;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
