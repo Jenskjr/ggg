@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 // css
 import styles from "./Categories.module.css";
 
-const StoettetFoer = (props, { count, dispatch }) => {
+const StoettetFoer = props => {
+  useEffect(() => {
+    props.resetSearchString();
+  }, []);
+
   return <div className={styles.container}></div>;
 };
 
@@ -15,8 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    increment: () => dispatch({ type: "INCREMENT" }),
-    decrement: () => dispatch({ type: "DECREMENT" })
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
   };
 };
 

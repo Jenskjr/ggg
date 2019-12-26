@@ -14,6 +14,10 @@ import Checkout from "../checkout/Checkout";
 import InfoBox from "../ui-components/InfoBox";
 
 const DetailsView = props => {
+  useEffect(() => {
+    props.resetSearchString();
+  }, []);
+
   const [thisContent, setThisContent] = useState([]);
   const [project, setProject] = useState([]);
   const [checkout, setCheckout] = useState(false);
@@ -99,96 +103,96 @@ const DetailsView = props => {
               </div>
             </Link>
           </div>
-        <div className="container">       
-          <div className="top">
-            <div className="left">
-              <h4>{`${project.organization} ${project.title}`}</h4>
-              {project.description}
-            </div>
-            <div className="right">
-              <img src={`./media/logos/supporters/${project.logo}`} alt="" />
-            </div>
-          </div>
-
-          <div className="devGoals">
-            {project.devGoals &&
-              project.devGoals.map((goal, index) => (
-                <img
-                  key={index}
-                  src={`./media/logos/dev-goals/${goal}.gif`}
-                  alt=""
-                />
-              ))}
-          </div>
-          <div className="bottom">
-            <div className="amount">
-              <input
-                className="range"
-                name="amount"
-                type="range"
-                min="0"
-                max="500"
-                value={formData.amount}
-                onChange={handleFormChange}
-                //onChange={e => setAmount(e.target.value)}
-                id="range"
-              />
-              <div>
-                <TextInput
-                  name="amount"
-                  value={formData.amount}
-                  handleChange={handleFormChange}
-                />
-                <div>Indtast valgfrit beløb</div>
+          <div className="container">
+            <div className="top">
+              <div className="left">
+                <h4>{`${project.organization} ${project.title}`}</h4>
+                {project.description}
+              </div>
+              <div className="right">
+                <img src={`./media/logos/supporters/${project.logo}`} alt="" />
               </div>
             </div>
-            <RadioInput
-              name="stoetFast"
-              title="støt fast"
-              value="Monthly"
-              checked={formData.paymentOption === "Monthly"}
-              onChange={handleFormChange}
-            />
-            <RadioInput
-              name="stoetFast"
-              title="støt én gang"
-              value="Once"
-              checked={formData.paymentOption === "Once"}
-              onChange={handleFormChange}
-            />
-            <TextInput
-              name="name"
-              placeholder="Dit navn"
-              handleChange={handleFormChange}
-              value={formData.name}
-            />
-            <TextInput
-              name="email"
-              placeholder="Din e-mail (benyttes til kvittering)"
-              handleChange={handleFormChange}
-              value={formData.email}
-            />
-            <TextInput
-              name="telefon"
-              placeholder="Dit telefonnr"
-              handleChange={handleFormChange}
-              value={formData.telefon}
-            />
-            <Checkbox
-              name="fradrag"
-              value={formData.fradrag}
-              checked={formData.fradrag}
-              onChange={handleFormChange}
-            />
-            <FormButton
-              handleSubmit={() => {
-                validForm && setCheckout(true);
-                setInfoOpen(true);
-              }}
-              label="Støt nu - Fortsæt til betaling"
-            />
+
+            <div className="devGoals">
+              {project.devGoals &&
+                project.devGoals.map((goal, index) => (
+                  <img
+                    key={index}
+                    src={`./media/logos/dev-goals/${goal}.gif`}
+                    alt=""
+                  />
+                ))}
+            </div>
+            <div className="bottom">
+              <div className="amount">
+                <input
+                  className="range"
+                  name="amount"
+                  type="range"
+                  min="0"
+                  max="500"
+                  value={formData.amount}
+                  onChange={handleFormChange}
+                  //onChange={e => setAmount(e.target.value)}
+                  id="range"
+                />
+                <div>
+                  <TextInput
+                    name="amount"
+                    value={formData.amount}
+                    handleChange={handleFormChange}
+                  />
+                  <div>Indtast valgfrit beløb</div>
+                </div>
+              </div>
+              <RadioInput
+                name="stoetFast"
+                title="støt fast"
+                value="Monthly"
+                checked={formData.paymentOption === "Monthly"}
+                onChange={handleFormChange}
+              />
+              <RadioInput
+                name="stoetFast"
+                title="støt én gang"
+                value="Once"
+                checked={formData.paymentOption === "Once"}
+                onChange={handleFormChange}
+              />
+              <TextInput
+                name="name"
+                placeholder="Dit navn"
+                handleChange={handleFormChange}
+                value={formData.name}
+              />
+              <TextInput
+                name="email"
+                placeholder="Din e-mail (benyttes til kvittering)"
+                handleChange={handleFormChange}
+                value={formData.email}
+              />
+              <TextInput
+                name="telefon"
+                placeholder="Dit telefonnr"
+                handleChange={handleFormChange}
+                value={formData.telefon}
+              />
+              <Checkbox
+                name="fradrag"
+                value={formData.fradrag}
+                checked={formData.fradrag}
+                onChange={handleFormChange}
+              />
+              <FormButton
+                handleSubmit={() => {
+                  validForm && setCheckout(true);
+                  setInfoOpen(true);
+                }}
+                label="Støt nu - Fortsæt til betaling"
+              />
+            </div>
           </div>
-        </div>
           {!validForm && (
             <InfoBox
               open={infoOpen}
@@ -238,7 +242,6 @@ const container = () => css`
     background-color: white;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
-
 
     .top {
       display: flex;
@@ -334,7 +337,12 @@ const container = () => css`
     -moz-border-radius: 10px;
     border-radius: 10px;
   }
-
 `;
 
-export default connect(mapStateToProps)(DetailsView);
+const mapDispatchToProps = dispatch => {
+  return {
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsView);

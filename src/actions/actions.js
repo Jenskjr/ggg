@@ -3,24 +3,49 @@ export const DECREMENT = 'DECREMENT';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const CHANGELANGUAGE = 'CHANGELANGUAGE';
+export const SETSEARCHSTRING = 'SETSEARCHSTRING';
+export const RESETSEARCHSTRING = 'RESETSEARCHSTRING';
 
 
-export function increment() {
-    return { type: INCREMENT}
+export const increment = () => {
+    return {
+        type: INCREMENT
+    }
 }
 
-export function decrement() {
-    return { type: DECREMENT}
+export const decrement = () => {
+    return {
+        type: DECREMENT
+    }
 }
 
-export function login() {
-    return { type: LOGIN }
+export const login = () => {
+    return {
+        type: LOGIN
+    }
 }
 
-export function logOut() {
-    return { type: LOGOUT }
+export const logOut = () => {
+    return {
+        type: LOGOUT
+    }
 }
 
-export function changeLanguage (lang) {
-    return { type: CHANGELANGUAGE}
+export const changeLanguage = (lang) => {
+    return {
+        type: CHANGELANGUAGE
+    }
+}
+
+export const setSearchString = (event) => {
+    return {
+        type: SETSEARCHSTRING,
+        event: event
+    }
+}
+
+export const resetSearchString = () => {
+    return {
+        type: RESETSEARCHSTRING
+    }
 }

@@ -1,14 +1,17 @@
 import {
     INCREMENT,
     DECREMENT,
-    CHANGELANGUAGE
+    CHANGELANGUAGE,
+    SETSEARCHSTRING,
+    RESETSEARCHSTRING
 } from '../actions/actions';
 import lang from '../lang/lang'
 
 const initialState = {
     count: 0,
     lang: lang.danish,
-    english: false
+    english: false,
+    searchString: ""
 }
 
 function rootReducer(state = initialState, action) {
@@ -17,24 +20,38 @@ function rootReducer(state = initialState, action) {
             return {
                 count: state.count + 1 // make a copy of state 
             }
-            case DECREMENT:
+            break;
+        case DECREMENT:
+            return {
+                count: state.count - 1 // make a copy of state
+            }
+            break;
+        case CHANGELANGUAGE:
+            if (state.lang === lang.danish)
                 return {
-                    count: state.count - 1 // make a copy of state
+                    ...state,
+                    lang: lang.english,
+                    english: true
                 }
-                case CHANGELANGUAGE:
-                    if (state.lang === lang.danish)
-                        return {
-                            lang: lang.english,
-                            english: true
-                        }
-                    if (state.lang === lang.english)
-                        return {
-                            lang: lang.danish,
-                            english: false
-                        }
-                    break;
-                default:
-                    return state
+            if (state.lang === lang.english)
+                return {
+                    ...state,
+                    lang: lang.danish,
+                    english: false
+                }
+            break;
+        case SETSEARCHSTRING:
+            return {
+                ...state, searchString: action.event.target.value,
+            }
+            break;
+        case RESETSEARCHSTRING:
+            return {
+                ...state, searchString: "",
+            }
+            break;
+        default:
+            return state
     }
 }
 

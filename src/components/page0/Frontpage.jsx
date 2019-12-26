@@ -5,11 +5,11 @@ import Page1 from "../page1/AlleNGOer";
 import Page2 from "../page2/DevGoals";
 import Page3 from "../page3/Categories";
 
-const Example = props => {
+const Frontpage = props => {
   const tabs = [
-    props.lang.NGOs,
-    props.lang.categories,
-    props.lang.developmentGoals
+    props.lang && props.lang.NGOs,
+    props.lang && props.lang.categories,
+    props.lang && props.lang.developmentGoals
   ];
   const content = [<Page1 />, <Page2 />, <Page3 />];
   return (
@@ -25,4 +25,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Example);
+export default connect(mapStateToProps)(Frontpage);

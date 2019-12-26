@@ -3,6 +3,7 @@ import React from "react";
 import { css } from "emotion";
 import { connect } from "react-redux";
 import { CloseIcon } from "mdi-react";
+import { Link } from "react-router-dom";
 
 const Navigation = props => {
   return (
@@ -15,11 +16,16 @@ const Navigation = props => {
           </div>
         </header>
         <div className="nav-item" onClick={() => console.log("Log in")}>
-          {props.lang.login}
+          {props.lang && props.lang.login}
         </div>
         <div className="nav-item" onClick={() => props.changeLanguage()}>
-          {props.english ? "Dansk" : "English"}
+          {props.lang && props.english ? "Dansk" : "English"}
         </div>
+        <Link to={`/about`}>
+          <div className="nav-item" onClick={() => props.setNav(false)}>
+            Om Gennem Gode Gerninger
+          </div>
+        </Link>
       </div>
     </div>
   );
@@ -83,6 +89,11 @@ const container = () => css`
   .nav-item {
     border-bottom: 1px solid lightgrey;
     padding: 0.5rem 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: grey;
   }
 `;
 

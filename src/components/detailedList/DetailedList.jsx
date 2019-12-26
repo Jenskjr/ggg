@@ -9,6 +9,7 @@ const DetailedList = props => {
 
   useEffect(() => {
     getProjects();
+    props.resetSearchString();
   }, []);
 
   const getProjects = () => {
@@ -23,25 +24,24 @@ const DetailedList = props => {
   return (
     <div className={container()}>
       <Link to={`/`}>
-<<<<<<< HEAD
-        <div className="organization">
-          <img src={`./media/logos/${thisContent.logo}`} alt="" />
-=======
         <div className="overview">
-          <img src={`/media/logos/${thisContent.logo}`} alt="" />
->>>>>>> 9d9dd96156f5b2640603b359be3604aac8c40944
+          <img src={`./media/logos/${thisContent.logo}`} alt="" />
           <h4>{thisContent.title}</h4>
         </div>
       </Link>
 
       {!thisContent.projects && (
-        <p className="disclamer">{props.lang.thereAreNoProjectsAtTheMoment}</p>
+        <p className="disclamer">
+          {props.lang && props.lang.thereAreNoProjectsAtTheMoment}
+        </p>
       )}
 
       {thisContent.projects &&
         thisContent.projects.length &&
+        !props.searchString.length &&
         thisContent.projects.map((project, index) => (
-          <div className="list-item">
+          <div key={index} className="list-item">
+            {console.log(project)}
             <div className="side-by-side">
               <div className="left">
                 <div className="one">
@@ -53,7 +53,7 @@ const DetailedList = props => {
                 </div>
               </div>
               <div className="right">
-                <h4>Støttet af:</h4> 
+                <h4>Støttet af:</h4>
                 <a
                   href={thisContent.projects[index].url}
                   target="_blank"
@@ -74,22 +74,71 @@ const DetailedList = props => {
             </div>
           </div>
         ))}
+
+      {thisContent.projects &&
+        thisContent.projects.length &&
+        props.searchString.length &&
+        thisContent.projects
+          .filter(
+            project =>
+              project.title.indexOf(props.searchString) !== -1 ||
+              project.organization.indexOf(props.searchString) !== -1
+          )
+          .map((project, index) => (
+            <div key={index} className="list-item">
+              <div className="side-by-side">
+                <div className="left">
+                  <div className="one">
+                    <Link
+                      to={`/details/${thisContent.organizationId}/${project.id}`}
+                    >
+                      <img src={`./media/images/${project.image}`} alt="" />
+                    </Link>
+                  </div>
+                </div>
+                <div className="right">
+                  <h4>Støttet af:</h4>
+                  <a
+                    href={thisContent.projects[index].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={"./media/logos/supporters/" + project.logo}
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </div>
+              <div className="description">
+                <Link
+                  to={`/details/${thisContent.organizationId}/${project.id}`}
+                >
+                  <h4>{project.title}</h4>
+                  <div>{project.description}</div>
+                </Link>
+              </div>
+            </div>
+          ))}
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    lang: state.lang
+    lang: state.lang,
+    searchString: state.searchString
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" })
   };
 };
 
 const container = () => css`
   font-size: 0.8rem;
-<<<<<<< HEAD
-  background-color: white;
-=======
->>>>>>> 9d9dd96156f5b2640603b359be3604aac8c40944
 
   .header {
     display: flex;
@@ -150,12 +199,11 @@ const container = () => css`
         }
       }
     }
-      
+
     .description {
       padding: 1rem;
     }
   }
-
 
   a {
     text-decoration: none;
@@ -169,4 +217,4 @@ const container = () => css`
     font-size: 1rem;
   }
 `;
-export default connect(mapStateToProps)(DetailedList);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailedList);
