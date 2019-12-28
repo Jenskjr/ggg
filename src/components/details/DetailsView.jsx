@@ -13,6 +13,7 @@ import FormButton from "../ui-components/FormButton";
 import Checkbox from "../ui-components/CheckboxInput";
 import Checkout from "../checkout/Checkout";
 import InfoBox from "../ui-components/InfoBox";
+import { ChevronLeftIcon } from "mdi-react";
 
 const DetailsView = props => {
   useEffect(() => {
@@ -92,6 +93,7 @@ const DetailsView = props => {
           <div>
             <Link to={`/`}>
               <div className="overview">
+                <ChevronLeftIcon />
                 <img src={`./media/logos/${thisContent.logo}`} alt="" />
                 <h4>{thisContent.title}</h4>
               </div>
@@ -100,6 +102,7 @@ const DetailsView = props => {
           <div>
             <Link to={`/detailed-list/${thisContent.organizationId}`}>
               <div className="overview">
+                <ChevronLeftIcon />
                 <img src={`./media/images/${project.image}`} alt="" />
                 <h4>{project.title}</h4>
               </div>
@@ -112,11 +115,12 @@ const DetailsView = props => {
                 {project.description}
               </div>
               <div className="right">
+                <h4>Støttet af:</h4>
                 <img src={`./media/logos/supporters/${project.logo}`} alt="" />
               </div>
             </div>
 
-            <div className="devGoals">
+            <div className="dev-goals">
               {project.devGoals &&
                 project.devGoals.map((goal, index) => (
                   <img
@@ -245,6 +249,10 @@ const container = () => css`
       max-height: 100%;
       padding-right: 1rem;
     }
+
+    svg {
+      padding-right: 1rem;
+    }
   }
 
   .container {
@@ -254,12 +262,12 @@ const container = () => css`
 
     .top {
       display: flex;
-      // border: 1px solid grey;
       padding: 0.75rem;
       background-color: white;
 
       .left {
         max-width: 66%;
+        line-height: 1.2rem;
       }
 
       .right {
@@ -271,8 +279,8 @@ const container = () => css`
       }
     }
 
-    .devGoals {
-      margin: 1rem 1rem;
+    .dev-goals {
+      margin: 0.5rem 1rem 1.5rem 1rem;
       max-height: 3rem;
 
       img {
@@ -345,6 +353,13 @@ const container = () => css`
     cursor: pointer;
     -moz-border-radius: 10px;
     border-radius: 10px;
+  }
+
+  h4 {
+    padding: 0.5rem 0 0.8rem 0;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1rem;
   }
 `;
 

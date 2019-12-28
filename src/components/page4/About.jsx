@@ -50,6 +50,7 @@ const About = props => {
 const container = () => css`
   background-color: white;
   padding: 1rem;
+  line-height: 1.5rem;
 `;
 
 export default About;

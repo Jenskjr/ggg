@@ -4,6 +4,7 @@ import { setSearch } from "../../actions/actions.js";
 import { css } from "emotion";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { ChevronLeftIcon } from "mdi-react";
 
 const DetailedList = props => {
   let [thisContent, setThisContent] = useState([]);
@@ -27,6 +28,7 @@ const DetailedList = props => {
     <div className={container()}>
       <Link to={`/`}>
         <div className="overview">
+          <ChevronLeftIcon />
           <img src={`./media/logos/${thisContent.logo}`} alt="" />
           <h4>{thisContent.title}</h4>
         </div>
@@ -67,11 +69,15 @@ const DetailedList = props => {
                 </a>
               </div>
             </div>
-            <div className="description">
-              <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
-                <h4>{project.title}</h4>
-                <div>{project.description}</div>
-              </Link>
+            <div className="description-container">
+              <div className="description">
+                <Link
+                  to={`/details/${thisContent.organizationId}/${project.id}`}
+                >
+                  <h4>{project.title}</h4>
+                  <div>{project.description}</div>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
@@ -166,6 +172,10 @@ const container = () => css`
       max-height: 100%;
       padding-right: 1rem;
     }
+
+    svg {
+      padding-right: 1rem;
+    }
   }
 
   .list-item {
@@ -176,12 +186,11 @@ const container = () => css`
 
     .side-by-side {
       display: flex;
-      padding: 1rem;
 
       .left {
-        width: 60%;
-        margin-right: 0.8rem;
+        width: calc(60% - 2rem);
         overflow-y: hidden;
+        padding: 1rem 1rem 1.5rem 1rem;
 
         img {
           width: 100%;
@@ -190,10 +199,11 @@ const container = () => css`
 
       .right {
         text-align: center;
-        width: 40%;
+        width: calc(40% - 2rem);
+        padding: 1rem 1rem 1.5rem 1rem;
 
         h4 {
-          padding-bottom: 0.5rem;
+          padding-bottom: 1rem;
         }
 
         img {
@@ -203,7 +213,12 @@ const container = () => css`
     }
 
     .description {
-      padding: 1rem;
+      padding: 0 1rem 1.5rem 1rem;
+      line-height: 1.2rem;
+
+      @media all and (min-width: 769px) {
+        width: calc(60% - 2rem);
+      }
     }
   }
 
@@ -213,7 +228,7 @@ const container = () => css`
   }
 
   h4 {
-    padding: 0 0 0.2rem 0;
+    padding: 0 0 0.5rem 0;
     margin: 0;
     font-weight: normal;
     font-size: 1rem;
