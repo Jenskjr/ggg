@@ -61,39 +61,45 @@ const DetailedList = props => {
           {props.lang && props.lang.thereAreNoProjectsAtTheMoment}
         </p>
       )}
-      {filteredProjects.map((project, index) => (
-        <div key={index} className="list-item">
-          <div className="side-by-side">
-            <div className="left">
-              <div className="one">
+      {filteredProjects &&
+        filteredProjects.map((project, index) => (
+          <div key={index} className="list-item">
+            <div className="side-by-side">
+              <div className="left">
+                <div className="one">
+                  <Link
+                    to={`/details/${thisContent.organizationId}/${project.id}`}
+                  >
+                    <img src={`./media/images/${project.image}`} alt="" />
+                  </Link>
+                </div>
+              </div>
+              <div className="right">
+                <h4>Støttet af:</h4>
+                <a
+                  href={thisContent.projects[index].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={"./media/logos/supporters/" + project.logo}
+                    alt=""
+                  />
+                </a>
+              </div>
+            </div>
+            <div className="description-container">
+              <div className="description">
                 <Link
                   to={`/details/${thisContent.organizationId}/${project.id}`}
                 >
-                  <img src={`./media/images/${project.image}`} alt="" />
+                  <h4>{project.title}</h4>
+                  <div>{project.description}</div>
                 </Link>
               </div>
             </div>
-            <div className="right">
-              <h4>Støttet af:</h4>
-              <a
-                href={thisContent.projects[index].url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={"./media/logos/supporters/" + project.logo} alt="" />
-              </a>
-            </div>
           </div>
-          <div className="description-container">
-            <div className="description">
-              <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
-                <h4>{project.title}</h4>
-                <div>{project.description}</div>
-              </Link>
-            </div>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import content from "../../content/content";
 // components
 import TextInput from "../ui-components/TextInput";
 import RadioInput from "../ui-components/RadioInput";
+import Slider from "../ui-components/Slider";
 import FormButton from "../ui-components/FormButton";
 import Checkbox from "../ui-components/CheckboxInput";
 import Checkout from "../checkout/Checkout";
@@ -131,17 +132,13 @@ const DetailsView = props => {
                 ))}
             </div>
             <div className="bottom">
-              <div className="amount">
-                <input
-                  className="range"
+              <div className="amount input">
+                <Slider
                   name="amount"
-                  type="range"
-                  min="0"
-                  max="500"
                   value={formData.amount}
                   onChange={handleFormChange}
-                  //onChange={e => setAmount(e.target.value)}
-                  id="range"
+                  min="0"
+                  max="500"
                 />
                 <div>
                   <TextInput
@@ -152,44 +149,50 @@ const DetailsView = props => {
                   <div>Indtast valgfrit beløb</div>
                 </div>
               </div>
-              <RadioInput
-                name="stoetFast"
-                title="støt fast"
-                value="Monthly"
-                checked={formData.paymentOption === "Monthly"}
-                onChange={handleFormChange}
-              />
-              <RadioInput
-                name="stoetFast"
-                title="støt én gang"
-                value="Once"
-                checked={formData.paymentOption === "Once"}
-                onChange={handleFormChange}
-              />
-              <TextInput
-                name="name"
-                placeholder="Dit navn"
-                handleChange={handleFormChange}
-                value={formData.name}
-              />
-              <TextInput
-                name="email"
-                placeholder="Din e-mail (benyttes til kvittering)"
-                handleChange={handleFormChange}
-                value={formData.email}
-              />
-              <TextInput
-                name="telefon"
-                placeholder="Dit telefonnr"
-                handleChange={handleFormChange}
-                value={formData.telefon}
-              />
-              <Checkbox
-                name="fradrag"
-                value={formData.fradrag}
-                checked={formData.fradrag}
-                onChange={handleFormChange}
-              />
+              <div className="input">
+                <RadioInput
+                  name="stoetFast"
+                  title="Støt fast"
+                  value="Monthly"
+                  checked={formData.paymentOption === "Monthly"}
+                  onChange={handleFormChange}
+                />
+                <RadioInput
+                  name="stoetFast"
+                  title="Støt én gang"
+                  value="Once"
+                  checked={formData.paymentOption === "Once"}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <div className="input">
+                <TextInput
+                  name="name"
+                  placeholder="Dit navn"
+                  handleChange={handleFormChange}
+                  value={formData.name}
+                />
+                <TextInput
+                  name="email"
+                  placeholder="Din e-mail (benyttes til kvittering)"
+                  handleChange={handleFormChange}
+                  value={formData.email}
+                />
+                <TextInput
+                  name="telefon"
+                  placeholder="Dit telefonnr"
+                  handleChange={handleFormChange}
+                  value={formData.telefon}
+                />
+              </div>
+              <div className="input">
+                <Checkbox
+                  name="fradrag"
+                  value={formData.fradrag}
+                  checked={formData.fradrag}
+                  onChange={handleFormChange}
+                />
+              </div>
               <FormButton
                 handleSubmit={() => {
                   validForm && setCheckout(true);
@@ -301,7 +304,7 @@ const container = () => css`
         align-items: center;
 
         div:first-child {
-          width: 80%;
+          width: 50%;
         }
 
         div:last-child {
@@ -319,11 +322,6 @@ const container = () => css`
     }
   }
 
-  input[type="radio"],
-  input[type="checkbox"] {
-    margin-right: 0.5rem;
-  }
-
   label {
     margin-right: 1rem;
   }
@@ -333,33 +331,15 @@ const container = () => css`
     color: black;
   }
 
-  #range {
-    margin-right: 1rem;
-    -webkit-appearance: none !important;
-    background: #cecece;
-    height: 1px;
-    width: 425px;
-    -webkit-transform: translate3d(0px, 0px, 0px);
-    margin-top: 10px;
-    cursor: pointer;
-  }
-
-  #range::-webkit-slider-thumb {
-    margin-right: 1rem;
-    -webkit-appearance: none !important;
-    background: #666;
-    height: 10px;
-    width: 10px;
-    cursor: pointer;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-  }
-
   h4 {
     padding: 0.5rem 0 0.8rem 0;
     margin: 0;
     font-weight: normal;
     font-size: 1rem;
+  }
+
+  .input {
+    margin-bottom: 1.5rem;
   }
 `;
 

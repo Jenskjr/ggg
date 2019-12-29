@@ -35,7 +35,8 @@ const container = () => css`
       margin-right: 1rem;
     }
     color: white;
-    font-size: 1.3rem;
+    -webkit-text-fill-color: white;
+    font-size: 1.2rem;
   }
 `;
 
