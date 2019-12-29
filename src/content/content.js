@@ -25,7 +25,7 @@ export default [{
                 url: "https://www.coop.dk/",
                 title: "Giv dit tøj nyt liv",
                 description: "I partnerskab kan Røde Kors, Coop gøre noget særligt, som vi hver især ikke kan alene. Vi har skabt en ny nødhjælpsvaluta: Brugt tøj - og i naturlig forlængelse heraf giver Smid Tøjet-sækken danskerne en mulighed for at gå all-in ved at smide tøjet i en sæk, der tilfører lidt ekstra værdi til hjælpearbejdet.",
-                devGoals: [1, 2, 3]
+                devGoals: [1, 10, 12]
             },
             {
                 id: 3,
@@ -35,7 +35,7 @@ export default [{
                 url: "https://www.scholl.dk/",
                 title: "Mad og uddanelse i Malawi",
                 description: "Scholl er gået sammen med Røde Kors og donerer nærings holdige måltider og uddannelse i Malawi. Scholl støtter også bønder vis høst har slået fejl grundet klimaændringerne, samt hjælper katastrofeområder hvor folk har mistet alt.",
-                devGoals: [1, 2, 3]
+                devGoals: [1, 2, 3, 4, 6]
             },
             {
                 id: 4,
@@ -45,7 +45,7 @@ export default [{
                 url: "https://www.interflora.dk/",
                 title: "Bekæmp ensomhed i Danmark",
                 description: 'Der findes desværre alt for mange danskere, som føler sig isoleret og mangler nogle at komme tættere på. "Hos Interflora lever vi for – og af – at bringe mennesker tættere sammen".  Derfor ønsker vi at samarbejde med Røde Kors på at reducere ensomheden i Danmark.',
-                devGoals: [1, 2, 3]
+                devGoals: [3]
             },
             {
                 id: 5,
@@ -55,7 +55,7 @@ export default [{
                 url: "http://br.dk",
                 title: "Leg for livet",
                 description: "Leg er en vigtig del af Røde Kors’ arbejde med udsatte børn, ligesom det burde være en vigtig del af ethvert barns hverdag. Desværre ser vi overalt i verden alt for mange børn, der lever under omstændigheder, som ikke gør en barndom med leg og tryghed mulig.",
-                devGoals: [4, 5, 6]
+                devGoals: [1, 4, 11]
 
             },
             {
@@ -66,7 +66,7 @@ export default [{
                 url: "https://www.iss.dk/",
                 title: "Ferielejr",
                 description: "Hvert år sende Ungdoms Røde Kors 1400 børn og unge afsted på sommerferie. Din donation kan hjælpe børn som ellers ikke har mulighed for at få en ferie til at komme hjem med fantastiske ferieminder.",
-                devGoals: [1, 2, 3]
+                devGoals: [1, 4, 11]
             }
         ]
     },

@@ -8,6 +8,7 @@ import { ChevronLeftIcon } from "mdi-react";
 
 const DetailedList = props => {
   let [thisContent, setThisContent] = useState([]);
+  let [filteredProjects, setFilteredProjects] = useState([]);
 
   useEffect(() => {
     getProjects();
@@ -15,11 +16,32 @@ const DetailedList = props => {
     props.setSearch(false);
   }, []);
 
+  useEffect(() => {
+    if (props.searchString !== "") {
+      let filteredContent = thisContent.projects.filter(
+        project =>
+          project.title
+            .toLowerCase()
+            .indexOf(props.searchString.toLowerCase()) !== -1 ||
+          project.organization
+            .toLowerCase()
+            .indexOf(props.searchString.toLowerCase()) !== -1 ||
+          project.description
+            .toLowerCase()
+            .indexOf(props.searchString.toLowerCase()) !== -1
+      );
+      setFilteredProjects(filteredContent);
+    } else {
+      getProjects();
+    }
+  }, [props.searchString]);
+
   const getProjects = () => {
     const contentId = window.location.href.split("detailed-list/")[1];
     content.forEach(content => {
       if (contentId.toString() === content.id.toString()) {
         setThisContent(content);
+        setFilteredProjects(content.projects);
       }
     });
   };
@@ -34,99 +56,44 @@ const DetailedList = props => {
         </div>
       </Link>
 
-      {!thisContent.projects && (
+      {!filteredProjects && (
         <p className="disclamer">
           {props.lang && props.lang.thereAreNoProjectsAtTheMoment}
         </p>
       )}
-
-      {thisContent.projects &&
-        thisContent.projects.length &&
-        !props.searchString.length &&
-        thisContent.projects.map((project, index) => (
-          <div key={index} className="list-item">
-            <div className="side-by-side">
-              <div className="left">
-                <div className="one">
-                  <Link
-                    to={`/details/${thisContent.organizationId}/${project.id}`}
-                  >
-                    <img src={`./media/images/${project.image}`} alt="" />
-                  </Link>
-                </div>
-              </div>
-              <div className="right">
-                <h4>Støttet af:</h4>
-                <a
-                  href={thisContent.projects[index].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src={"./media/logos/supporters/" + project.logo}
-                    alt=""
-                  />
-                </a>
-              </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
+      {filteredProjects.map((project, index) => (
+        <div key={index} className="list-item">
+          <div className="side-by-side">
+            <div className="left">
+              <div className="one">
                 <Link
                   to={`/details/${thisContent.organizationId}/${project.id}`}
                 >
-                  <h4>{project.title}</h4>
-                  <div>{project.description}</div>
+                  <img src={`./media/images/${project.image}`} alt="" />
                 </Link>
               </div>
+            </div>
+            <div className="right">
+              <h4>Støttet af:</h4>
+              <a
+                href={thisContent.projects[index].url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={"./media/logos/supporters/" + project.logo} alt="" />
+              </a>
             </div>
           </div>
-        ))}
-
-      {thisContent.projects &&
-        thisContent.projects.length &&
-        props.searchString.length &&
-        thisContent.projects
-          .filter(
-            project =>
-              project.title.indexOf(props.searchString) !== -1 ||
-              project.organization.indexOf(props.searchString) !== -1
-          )
-          .map((project, index) => (
-            <div key={index} className="list-item">
-              <div className="side-by-side">
-                <div className="left">
-                  <div className="one">
-                    <Link
-                      to={`/details/${thisContent.organizationId}/${project.id}`}
-                    >
-                      <img src={`./media/images/${project.image}`} alt="" />
-                    </Link>
-                  </div>
-                </div>
-                <div className="right">
-                  <h4>Støttet af:</h4>
-                  <a
-                    href={thisContent.projects[index].url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      src={"./media/logos/supporters/" + project.logo}
-                      alt=""
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="description">
-                <Link
-                  to={`/details/${thisContent.organizationId}/${project.id}`}
-                >
-                  <h4>{project.title}</h4>
-                  <div>{project.description}</div>
-                </Link>
-              </div>
+          <div className="description-container">
+            <div className="description">
+              <Link to={`/details/${thisContent.organizationId}/${project.id}`}>
+                <h4>{project.title}</h4>
+                <div>{project.description}</div>
+              </Link>
             </div>
-          ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
