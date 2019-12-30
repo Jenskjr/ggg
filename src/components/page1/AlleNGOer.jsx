@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { setSearch } from "../../actions/actions.js";
 // css
 import styles from "./AlleNGOer.module.css";
 // components
 import ListView from "../ui-components/ListView";
 import ListItem from "../ui-components/ListItem";
 import { connect } from "react-redux";
-// content
-import content from "../../content/content";
 
 const AlleNGOer = props => {
   let [initialContent, setInitialContent] = useState([]);
   let [filteredContent, setFilteredContent] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      props.resetSearchString();
+      props.setSearch(false);
+    };
+  }, []);
 
   useEffect(() => {
     getContent();
@@ -30,14 +37,19 @@ const AlleNGOer = props => {
     }
   }, [props.searchString]);
 
-  const getContent = () => {
-    setInitialContent(content);
-    setFilteredContent(content);
+  const getContent = async () => {
+    const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    try {
+      let { data } = await axios.get(reqUrl);
+      setInitialContent(data);
+      setFilteredContent(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className={styles.container}>
-      {console.log(filteredContent)}
       {filteredContent.map((content, index) => (
         <ListView key={index}>
           <ListItem
@@ -60,4 +72,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AlleNGOer);
+const mapDispatchToProps = dispatch => {
+  return {
+    resetSearchString: () => dispatch({ type: "RESETSEARCHSTRING" }),
+    setSearch: event => dispatch(setSearch(event))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlleNGOer);

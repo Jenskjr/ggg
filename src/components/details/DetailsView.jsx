@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setSearch } from "../../actions/actions.js";
 // css
 import { css } from "emotion";
-// data
-import content from "../../content/content";
 // components
 import TextInput from "../ui-components/TextInput";
 import RadioInput from "../ui-components/RadioInput";
@@ -17,11 +16,6 @@ import InfoBox from "../ui-components/InfoBox";
 import { ChevronLeftIcon } from "mdi-react";
 
 const DetailsView = props => {
-  useEffect(() => {
-    props.resetSearchString();
-    props.setSearch(false);
-  }, []);
-
   const [thisContent, setThisContent] = useState([]);
   const [project, setProject] = useState([]);
   const [checkout, setCheckout] = useState(false);
@@ -34,6 +28,8 @@ const DetailsView = props => {
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
+    props.resetSearchString();
+    props.setSearch(false);
     splitUrl();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -48,29 +44,34 @@ const DetailsView = props => {
     const projectId = array[array.length - 1];
     const organizationId = array[array.length - 2];
 
-    getProject(projectId);
-    getContent(organizationId);
+    getContent(organizationId, projectId);
   };
 
-  const getProject = projectId => {
-    content.forEach(content => {
-      let projects = content.projects;
-      if (projects && projects.length) {
-        projects.forEach(project => {
-          if (project.id.toString() === projectId.toString()) {
-            setProject(project);
-          }
-        });
-      }
-    });
-  };
+  const getContent = async (contentId, projectId) => {
+    const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    try {
+      let { data } = await axios.get(reqUrl);
+      // get content
+      data.forEach(content => {
+        if (contentId.toString() === content.id.toString()) {
+          setThisContent(content);
+        }
+      });
 
-  const getContent = contentId => {
-    content.forEach(content => {
-      if (contentId.toString() === content.id.toString()) {
-        setThisContent(content);
-      }
-    });
+      // get project
+      data.forEach(content => {
+        let projects = content.projects;
+        if (projects && projects.length) {
+          projects.forEach(project => {
+            if (project.id.toString() === projectId.toString()) {
+              setProject(project);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleFormChange = e => {
@@ -140,7 +141,7 @@ const DetailsView = props => {
                   min="0"
                   max="500"
                 />
-                <div>
+                <div className="amount-textinput">
                   <TextInput
                     name="amount"
                     value={formData.amount}
@@ -307,8 +308,9 @@ const container = () => css`
           width: 50%;
         }
 
-        div:last-child {
+        .amount-textinput {
           margin-left: auto;
+          padding-left: 1rem;
 
           input {
             align-items: right;

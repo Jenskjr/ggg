@@ -4,7 +4,7 @@ import { css } from "emotion";
 const CheckboxInput = props => {
   return (
     <div className={container()}>
-      <label class="container">
+      <label className="container">
         Få støttefradrag
         <input
           type="checkbox"
@@ -13,7 +13,7 @@ const CheckboxInput = props => {
           onChange={props.onChange}
           checked={props.checked}
         />
-        <span class="checkmark"></span>
+        <span className="checkmark"></span>
       </label>
     </div>
   );

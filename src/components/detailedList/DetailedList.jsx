@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import content from "../../content/content";
+import axios from "axios";
 import { setSearch } from "../../actions/actions.js";
 import { css } from "emotion";
 import { Link } from "react-router-dom";
@@ -11,13 +11,13 @@ const DetailedList = props => {
   let [filteredProjects, setFilteredProjects] = useState([]);
 
   useEffect(() => {
-    getProjects();
     props.resetSearchString();
     props.setSearch(false);
+    getContent();
   }, []);
 
   useEffect(() => {
-    if (props.searchString !== "") {
+    if (thisContent.projects && props.searchString !== "") {
       let filteredContent = thisContent.projects.filter(
         project =>
           project.title
@@ -32,18 +32,24 @@ const DetailedList = props => {
       );
       setFilteredProjects(filteredContent);
     } else {
-      getProjects();
+      getContent();
     }
   }, [props.searchString]);
 
-  const getProjects = () => {
-    const contentId = window.location.href.split("detailed-list/")[1];
-    content.forEach(content => {
-      if (contentId.toString() === content.id.toString()) {
-        setThisContent(content);
-        setFilteredProjects(content.projects);
-      }
-    });
+  const getContent = async () => {
+    const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    try {
+      let { data } = await axios.get(reqUrl);
+      const contentId = window.location.href.split("detailed-list/")[1];
+      data.forEach(content => {
+        if (contentId.toString() === content.id.toString()) {
+          setThisContent(content);
+          setFilteredProjects(content.projects);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
