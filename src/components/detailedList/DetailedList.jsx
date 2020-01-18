@@ -37,7 +37,8 @@ const DetailedList = props => {
   }, [props.searchString]);
 
   const getContent = async () => {
-    const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    //const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    const reqUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com/all`;
     try {
       let { data } = await axios.get(reqUrl);
       const contentId = window.location.href.split("detailed-list/")[1];

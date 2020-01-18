@@ -48,7 +48,8 @@ const DetailsView = props => {
   };
 
   const getContent = async (contentId, projectId) => {
-    const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    //const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
+    const reqUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com/all`;
     try {
       let { data } = await axios.get(reqUrl);
       // get content
