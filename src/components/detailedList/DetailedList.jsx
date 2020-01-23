@@ -37,11 +37,14 @@ const DetailedList = props => {
   }, [props.searchString]);
 
   const getContent = async () => {
-    //const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
-    const reqUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com/all`;
+    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
+    //"http://localhost:8081";
+    const contentId = window.location.href.split("detailed-list/")[1];
+    const reqUrl = `${baseUrl}/projects/${contentId}`;
+
     try {
       let { data } = await axios.get(reqUrl);
-      const contentId = window.location.href.split("detailed-list/")[1];
+
       data.forEach(content => {
         if (contentId.toString() === content.id.toString()) {
           setThisContent(content);

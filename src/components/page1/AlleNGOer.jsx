@@ -38,8 +38,11 @@ const AlleNGOer = props => {
   }, [props.searchString]);
 
   const getContent = async () => {
-    //const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
-    const reqUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com/all`;
+    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
+    //"http://localhost:8081";
+
+    const reqUrl = `${baseUrl}/organizations`;
+
     try {
       let { data } = await axios.get(reqUrl);
       setInitialContent(data);

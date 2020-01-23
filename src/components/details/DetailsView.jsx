@@ -16,7 +16,7 @@ import InfoBox from "../ui-components/InfoBox";
 import { ChevronLeftIcon } from "mdi-react";
 
 const DetailsView = props => {
-  const [thisContent, setThisContent] = useState([]);
+  const [thisContent, setThisContent] = useState({ project: {} });
   const [project, setProject] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [formData, setFormData] = useState({
@@ -47,29 +47,16 @@ const DetailsView = props => {
     getContent(organizationId, projectId);
   };
 
-  const getContent = async (contentId, projectId) => {
-    //const reqUrl = `http://jenskjr.dk/gennem_gode_gerninger_api/`;
-    const reqUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com/all`;
+  const getContent = async (organizationId, projectId) => {
+    const baseUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com`;
+    //"http://localhost:8081";
+
+    const reqUrl = `${baseUrl}/project/${organizationId}/${projectId}`;
+
     try {
       let { data } = await axios.get(reqUrl);
-      // get content
-      data.forEach(content => {
-        if (contentId.toString() === content.id.toString()) {
-          setThisContent(content);
-        }
-      });
 
-      // get project
-      data.forEach(content => {
-        let projects = content.projects;
-        if (projects && projects.length) {
-          projects.forEach(project => {
-            if (project.id.toString() === projectId.toString()) {
-              setProject(project);
-            }
-          });
-        }
-      });
+      setThisContent(data);
     } catch (error) {
       console.log(error);
     }
@@ -106,26 +93,32 @@ const DetailsView = props => {
             <Link to={`/detailed-list/${thisContent.organizationId}`}>
               <div className="overview">
                 <ChevronLeftIcon />
-                <img src={`./media/images/${project.image}`} alt="" />
-                <h4>{project.title}</h4>
+                <img
+                  src={`./media/images/${thisContent.project.image}`}
+                  alt=""
+                />
+                <h4>{thisContent.project.title}</h4>
               </div>
             </Link>
           </div>
           <div className="container">
             <div className="top">
               <div className="left">
-                <h4>{`${project.organization} ${project.title}`}</h4>
-                {project.description}
+                <h4>{`${thisContent.project.organization} ${thisContent.project.title}`}</h4>
+                {thisContent.project.description}
               </div>
               <div className="right">
                 <h4>Støttet af:</h4>
-                <img src={`./media/logos/supporters/${project.logo}`} alt="" />
+                <img
+                  src={`./media/logos/supporters/${thisContent.project.logo}`}
+                  alt=""
+                />
               </div>
             </div>
 
             <div className="dev-goals">
-              {project.devGoals &&
-                project.devGoals.map((goal, index) => (
+              {thisContent.project.devGoals &&
+                thisContent.project.devGoals.map((goal, index) => (
                   <img
                     key={index}
                     src={`./media/logos/dev-goals/${goal}.gif`}

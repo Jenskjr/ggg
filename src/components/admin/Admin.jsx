@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+//css
 import { css } from "emotion";
 //components
 import Login from "./Login";
@@ -9,6 +11,7 @@ const Admin = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [account, setAccount] = useState([]);
 
   useEffect(() => {
     validateForm();
@@ -28,9 +31,24 @@ const Admin = () => {
 
   const handleSubmit = () => {
     setSubmitted(true);
-    if (validForm && checkLogin()) {
-      setSignedIn(true);
-    } else if (validForm) setErrorMessage(true);
+    validForm && handleLogin();
+  };
+
+  // login
+  const handleLogin = async () => {
+    try {
+      const baseUrl =
+        "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
+      //"http://localhost:8081";
+      const reqUrl = `${baseUrl}/auth`;
+      let { data } = await axios.get(reqUrl, {
+        headers: { userName: formData.userName, token: formData.password }
+      });
+      setAccount(data);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(true);
+    }
   };
 
   const checkLogin = async () => {
@@ -42,7 +60,7 @@ const Admin = () => {
   return (
     <div className={container()}>
       <h1>Admin page</h1>
-      {!signedIn && (
+      {!account.id && (
         <Login
           handleFormChange={handleFormChange}
           handleSubmit={handleSubmit}
@@ -53,7 +71,7 @@ const Admin = () => {
           //unsetErrorMessageLogIn={setErrorMessage(false)}
         />
       )}
-      {signedIn && `Hi ${formData.userName}`}
+      {account.id && `Hi ${account.name}`}
     </div>
   );
 };
