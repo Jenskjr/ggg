@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { setSearch } from "../../actions/actions.js";
+import { connect } from "react-redux";
 // css
 import styles from "./AlleNGOer.module.css";
 // components
 import ListView from "../ui-components/ListView";
 import ListItem from "../ui-components/ListItem";
-import { connect } from "react-redux";
 
 const AlleNGOer = props => {
   let [initialContent, setInitialContent] = useState([]);

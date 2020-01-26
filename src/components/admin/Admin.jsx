@@ -8,7 +8,6 @@ import Login from "./Login";
 const Admin = () => {
   const [formData, setFormData] = useState([]);
   const [validForm, setValidForm] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [account, setAccount] = useState([]);

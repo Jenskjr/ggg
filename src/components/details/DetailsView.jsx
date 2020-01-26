@@ -113,6 +113,7 @@ const DetailsView = props => {
                   src={`./media/logos/supporters/${thisContent.project.logo}`}
                   alt=""
                 />
+                <p>Fordbler beløbet</p>
               </div>
             </div>
 

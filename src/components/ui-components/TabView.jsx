@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { css } from "emotion";
+import { connect } from "react-redux";
+import { setTabIndex } from "../../actions/actions.js";
 
 const TabView = props => {
-  const [tabIndex, setTabIndex] = useState(0);
-
   const handleTabClick = tabIndex => {
-    setTabIndex(tabIndex);
+    props.setTabIndex(tabIndex);
   };
 
   return (
@@ -14,7 +14,7 @@ const TabView = props => {
         {props.tabs.map((tab, index) => (
           <div
             key={index}
-            className={`tab ${tabIndex === index && "active"}`}
+            className={`tab ${props.tabIndex === index && "active"}`}
             onClick={() => {
               handleTabClick(index);
             }}
@@ -23,9 +23,21 @@ const TabView = props => {
           </div>
         ))}
       </div>
-      <div className="content">{props.content[tabIndex]}</div>
+      <div className="content">{props.content[props.tabIndex]}</div>
     </div>
   );
+};
+
+const mapStateToProps = state => {
+  return {
+    tabIndex: state.tabIndex
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setTabIndex: tabIndex => dispatch(setTabIndex(tabIndex))
+  };
 };
 
 const container = () => css`
@@ -49,4 +61,4 @@ const container = () => css`
   }
 `;
 
-export default TabView;
+export default connect(mapStateToProps, mapDispatchToProps)(TabView);

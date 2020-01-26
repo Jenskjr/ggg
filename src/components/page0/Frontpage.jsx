@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { setSearch } from "../../actions/actions.js";
 import TabView from "../ui-components/TabView";
 import Page1 from "../page1/AlleNGOer";
-import Page2 from "../page2/DevGoals";
-import Page3 from "../page3/Categories";
+import Page3 from "../page3/DevGoals";
+import Page2 from "../page2/Categories";
 
 const Frontpage = props => {
   useEffect(() => {

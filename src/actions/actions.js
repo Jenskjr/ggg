@@ -6,19 +6,31 @@ export const CHANGELANGUAGE = 'CHANGELANGUAGE';
 export const SETSEARCH = 'SETSEARCH';
 export const SETSEARCHSTRING = 'SETSEARCHSTRING';
 export const RESETSEARCHSTRING = 'RESETSEARCHSTRING';
+export const SETURLHISTORY = 'SETURLHISTORY';
+export const SETSELECTEDDEVELOPMENTGOAL = 'SETSELECTEDDEVELOPMENTGOAL';
+export const SETTABINDEX = 'SETTABINDEX';
 
-
-export const increment = () => {
+export const setUrlhistory = url => {
     return {
-        type: INCREMENT
+        type: SETURLHISTORY,
+        url: url
     }
 }
 
-export const decrement = () => {
+export const setSelectedDevelopmentGoal = e => {
     return {
-        type: DECREMENT
+        type: SETSELECTEDDEVELOPMENTGOAL,
+        value: e.target.value
     }
 }
+
+export const setTabIndex = (tabIndex) => {
+    return {
+        type: SETTABINDEX,
+        tabIndex: tabIndex
+    }
+}
+
 
 export const login = () => {
     return {

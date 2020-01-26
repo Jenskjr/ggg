@@ -1,10 +1,11 @@
 import {
-    INCREMENT,
-    DECREMENT,
     CHANGELANGUAGE,
     SETSEARCHSTRING,
     RESETSEARCHSTRING,
-    SETSEARCH
+    SETSEARCH,
+    SETURLHISTORY,
+    SETSELECTEDDEVELOPMENTGOAL,
+    SETTABINDEX
 } from '../actions/actions';
 import lang from '../lang/lang'
 
@@ -13,19 +14,27 @@ const initialState = {
     lang: lang.danish,
     english: false,
     search: false,
-    searchString: ""
+    searchString: "",
+    urlHistory: [],
+    selectedDevelopmentGoal: undefined,
+    tabIndex: 2,
 }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
-        case INCREMENT:
+        case SETURLHISTORY:
             return {
-                count: state.count + 1 // make a copy of state 
+                ...state, urlHistory: action.url
             }
             break;
-        case DECREMENT:
+        case SETSELECTEDDEVELOPMENTGOAL:
             return {
-                count: state.count - 1 // make a copy of state
+                ...state, selectedDevelopmentGoal: action.value
+            }
+            break;
+        case SETTABINDEX:
+            return {
+                ...state, tabIndex: action.tabIndex
             }
             break;
         case CHANGELANGUAGE:

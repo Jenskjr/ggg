@@ -24,8 +24,8 @@ import {
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import AlleNGOer from "./components/page1/AlleNGOer";
-import TidligereSoegte from "./components/page2/DevGoals";
-import StoettetFoer from "./components/page3/Categories";
+import DevGoals from "./components/page3/DevGoals";
+import Categories from "./components/page2/Categories";
 import DetailedList from "./components/detailedList/DetailedList";
 import DetailsView from "./components/details/DetailsView";
 import Frontpage from "./components/page0/Frontpage";
@@ -74,12 +74,12 @@ const App = () => {
       /> <
       Route path = "/tidligere-søgte"
       component = {
-        TidligereSoegte
+        DevGoals
       }
       /> <
       Route path = "/støttet-før"
       component = {
-        StoettetFoer
+        Categories
       }
       /> <
       Route path = "/detailed-list/:id"
