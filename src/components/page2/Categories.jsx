@@ -2,24 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { css } from "emotion";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+//config
+import { getBaseUrl } from "../../config";
+// Actions
+import { setUrlhistory } from "../../actions/actions.js";
+import { setSelectedCategory } from "../../actions/actions.js";
+
+// Components
+import Select from "../ui-components/Select";
 
 const Categories = props => {
   const [categories, setCategories] = useState([]);
-  const [selectedValue, setSelectedValue] = useState(undefined);
+  const [content, setContent] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
-    getCategories();
+    getDevelopmentGoals();
     getAllProjects();
+    props.setUrlHistory([...props.urlHistory, window.location.href]);
   }, []);
 
   useEffect(() => {
-    //filterContent();
-  }, [selectedValue]);
+    content.length > 0 && props.selectedCategory && filterContent();
+  }, [content, props.selectedCategory]);
 
-  const getCategories = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
-
+  const getDevelopmentGoals = async () => {
     const reqUrl = `${baseUrl}/categories`;
 
     try {
@@ -31,41 +40,215 @@ const Categories = props => {
   };
 
   const getAllProjects = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
     const reqUrl = `${baseUrl}/allProjects`;
 
     try {
       let { data } = await axios.get(reqUrl);
-      //setContent(data);
+      setContent(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleChange = e => {
-    setSelectedValue(e.target.value);
-    //setFilteredProjects([]);
+    setFilteredProjects([]);
+    props.setSelectedCategory(e);
+  };
+
+  const filterContent = e => {
+    let thisFilteredProjects = [];
+    content.forEach(thisContent => {
+      // find project
+      thisContent.projects &&
+        thisContent.projects.forEach(project => {
+          project.categories &&
+            project.categories.forEach(category => {
+              if (category.toString() === props.selectedCategory.toString()) {
+                thisFilteredProjects = [...thisFilteredProjects, project];
+              }
+            });
+        });
+    });
+    setFilteredProjects(thisFilteredProjects);
   };
 
   return (
     <div className={container()}>
-      <select className="select-css" onChange={handleChange}>
-        {categories.map((devGoal, index) => (
-          <option key={index} value={devGoal.id}>
-            {devGoal.title}
-          </option>
+      <Select
+        options={categories}
+        handleChange={handleChange}
+        selectedValue={props.selectedCategory}
+      />
+
+      {!props.selectedCategory && (
+        <div className="development-goals">
+          {categories.length > 0 && (
+            <h2>Vælg et af de {categories.length} verdensmål fra listen.</h2>
+          )}
+        </div>
+      )}
+      {filteredProjects.length > 0 &&
+        props.selectedCategory &&
+        filteredProjects.map((project, index) => (
+          <div key={index} className="list-item">
+            <div className="side-by-side">
+              <div className="left">
+                <div className="one">
+                  <Link to={`/details/${project.organizationId}/${project.id}`}>
+                    <img src={`./media/images/${project.image}`} alt="" />
+                  </Link>
+                </div>
+              </div>
+              <div className="right">
+                <h4>Støttet af:</h4>
+                <a href={project.url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={"./media/logos/supporters/" + project.logo}
+                    alt=""
+                  />
+                </a>
+              </div>
+            </div>
+            <div className="description-container">
+              <div className="description">
+                <Link to={`/details/${project.organizationId}/${project.id}`}>
+                  <h4>{project.title}</h4>
+                  <div>{project.description}</div>
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
-      </select>
-      <div className="description">Der arbejdes stadig på denne del</div>
+      {filteredProjects.length === 0 && props.selectedCategory && (
+        <div className="error-message">
+          <h3>Der er desværre ingen projekter i denne kategori</h3>
+        </div>
+      )}
     </div>
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    urlHistory: state.urlHistory,
+    selectedCategory: state.selectedCategory,
+    tabIndex: state.tabIndex
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUrlHistory: value => dispatch(setUrlhistory(value)),
+    setSelectedCategory: e => dispatch(setSelectedCategory(e))
+  };
+};
+
 const container = () => css`
-  .description {
-    padding: 1rem;
+  font-size: 0.8rem;
+  height: 100vh;
+
+  .development-goals {
     text-align: center;
+    padding: 2rem;
+
+    img {
+      max-width: 100%;
+    }
+
+    h2 {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .error-message {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .header {
+    display: flex;
+  }
+
+  .disclamer {
+    text-align: center;
+    padding: 1rem;
+    height: 100vh;
+  }
+
+  .overview {
+    background-color: white;
+    display: flex;
+    margin: 1rem 0 1rem 0;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    height: 2rem;
+    align-items: center;
+
+    img {
+      max-height: 100%;
+      padding-right: 1rem;
+    }
+
+    svg {
+      padding-right: 1rem;
+    }
+  }
+
+  .list-item {
+    background-color: white;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: -1px;
+
+    .side-by-side {
+      display: flex;
+
+      .left {
+        width: calc(60% - 2rem);
+        overflow-y: hidden;
+        padding: 1rem 1rem 1.5rem 1rem;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .right {
+        text-align: center;
+        width: calc(40% - 2rem);
+        padding: 1rem 1rem 1.5rem 1rem;
+
+        h4 {
+          padding-bottom: 1rem;
+        }
+
+        img {
+          width: 70%;
+        }
+      }
+    }
+
+    .description {
+      padding: 0 1rem 1.5rem 1rem;
+      line-height: 1.2rem;
+
+      @media all and (min-width: 769px) {
+        width: calc(60% - 2rem);
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  h4 {
+    padding: 0 0 0.5rem 0;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1rem;
   }
 
   /*select*/
@@ -116,4 +299,4 @@ const container = () => css`
   }
 `;
 
-export default Categories;
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

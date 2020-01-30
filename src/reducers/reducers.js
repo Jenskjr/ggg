@@ -5,6 +5,7 @@ import {
     SETSEARCH,
     SETURLHISTORY,
     SETSELECTEDDEVELOPMENTGOAL,
+    SETSELECTEDCATEGORY,
     SETTABINDEX
 } from '../actions/actions';
 import lang from '../lang/lang'
@@ -17,7 +18,8 @@ const initialState = {
     searchString: "",
     urlHistory: [],
     selectedDevelopmentGoal: undefined,
-    tabIndex: 2,
+    selectedCategory: undefined,
+    tabIndex: 0,
 }
 
 function rootReducer(state = initialState, action) {
@@ -30,6 +32,11 @@ function rootReducer(state = initialState, action) {
         case SETSELECTEDDEVELOPMENTGOAL:
             return {
                 ...state, selectedDevelopmentGoal: action.value
+            }
+            break;
+        case SETSELECTEDCATEGORY:
+            return {
+                ...state, selectedCategory: action.value
             }
             break;
         case SETTABINDEX:

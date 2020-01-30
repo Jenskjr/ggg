@@ -4,6 +4,8 @@ import { setSearch } from "../../actions/actions.js";
 import { connect } from "react-redux";
 // css
 import styles from "./AlleNGOer.module.css";
+//config
+import { getBaseUrl } from "../../config";
 // components
 import ListView from "../ui-components/ListView";
 import ListItem from "../ui-components/ListItem";
@@ -11,6 +13,7 @@ import ListItem from "../ui-components/ListItem";
 const AlleNGOer = props => {
   let [initialContent, setInitialContent] = useState([]);
   let [filteredContent, setFilteredContent] = useState([]);
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
     return () => {
@@ -38,9 +41,6 @@ const AlleNGOer = props => {
   }, [props.searchString]);
 
   const getContent = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
-
     const reqUrl = `${baseUrl}/organizations`;
 
     try {

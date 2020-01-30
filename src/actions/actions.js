@@ -8,6 +8,7 @@ export const SETSEARCHSTRING = 'SETSEARCHSTRING';
 export const RESETSEARCHSTRING = 'RESETSEARCHSTRING';
 export const SETURLHISTORY = 'SETURLHISTORY';
 export const SETSELECTEDDEVELOPMENTGOAL = 'SETSELECTEDDEVELOPMENTGOAL';
+export const SETSELECTEDCATEGORY = 'SETSELECTEDCATEGORY';
 export const SETTABINDEX = 'SETTABINDEX';
 
 export const setUrlhistory = url => {
@@ -20,6 +21,13 @@ export const setUrlhistory = url => {
 export const setSelectedDevelopmentGoal = e => {
     return {
         type: SETSELECTEDDEVELOPMENTGOAL,
+        value: e.target.value
+    }
+}
+
+export const setSelectedCategory = e => {
+    return {
+        type: SETSELECTEDCATEGORY,
         value: e.target.value
     }
 }

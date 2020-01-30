@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+//config
+import { getBaseUrl } from "../../config";
+// actions
 import { setSearch } from "../../actions/actions.js";
 // css
 import { css } from "emotion";
@@ -26,6 +29,7 @@ const DetailsView = props => {
   });
   const [validForm, setValidForm] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
     props.resetSearchString();
@@ -48,9 +52,6 @@ const DetailsView = props => {
   };
 
   const getContent = async (organizationId, projectId) => {
-    const baseUrl = `http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com`;
-    //"http://localhost:8081";
-
     const reqUrl = `${baseUrl}/project/${organizationId}/${projectId}`;
 
     try {

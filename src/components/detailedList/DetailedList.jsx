@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { setSearch } from "../../actions/actions.js";
-import { css } from "emotion";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+//config
+import { getBaseUrl } from "../../config";
+// actions
+import { setSearch } from "../../actions/actions.js";
+// css
+import { css } from "emotion";
 import { ChevronLeftIcon } from "mdi-react";
 
 const DetailedList = props => {
   let [thisContent, setThisContent] = useState([]);
   let [filteredProjects, setFilteredProjects] = useState([]);
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
     props.resetSearchString();
@@ -37,8 +42,6 @@ const DetailedList = props => {
   }, [props.searchString]);
 
   const getContent = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
     const contentId = window.location.href.split("detailed-list/")[1];
     const reqUrl = `${baseUrl}/projects/${contentId}`;
 

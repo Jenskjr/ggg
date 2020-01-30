@@ -3,6 +3,9 @@ import axios from "axios";
 import { css } from "emotion";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+//config
+import { getBaseUrl } from "../../config";
+// Actions
 import { setUrlhistory } from "../../actions/actions.js";
 import { setSelectedDevelopmentGoal } from "../../actions/actions.js";
 // components
@@ -12,7 +15,7 @@ const DevGoals = props => {
   const [developmentGoals, setDevelopmentGoals] = useState([]);
   const [content, setContent] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [selection, setSelection] = useState(false);
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
     getDevelopmentGoals();
@@ -25,9 +28,6 @@ const DevGoals = props => {
   }, [content, props.selectedDevelopmentGoal]);
 
   const getDevelopmentGoals = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
-
     const reqUrl = `${baseUrl}/developmentgoals`;
 
     try {
@@ -39,8 +39,6 @@ const DevGoals = props => {
   };
 
   const getAllProjects = async () => {
-    const baseUrl = "http://test-env.eeimg4gnv9.us-east-2.elasticbeanstalk.com";
-    //"http://localhost:8081";
     const reqUrl = `${baseUrl}/allProjects`;
 
     try {
@@ -54,7 +52,6 @@ const DevGoals = props => {
   const handleChange = e => {
     setFilteredProjects([]);
     props.setSelectedDevelopmentGoal(e);
-    setSelection(true);
   };
 
   const filterContent = e => {
