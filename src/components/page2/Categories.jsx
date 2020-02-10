@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { css } from "emotion";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 //config
 import { getBaseUrl } from "../../config";
 // Actions
 import { setUrlhistory } from "../../actions/actions.js";
 import { setSelectedCategory } from "../../actions/actions.js";
-
 // Components
 import Select from "../ui-components/Select";
+import ProjectInformation from "../ui-components/ProjectInformation";
 
 const Categories = props => {
   const [categories, setCategories] = useState([]);
@@ -91,32 +90,7 @@ const Categories = props => {
         props.selectedCategory &&
         filteredProjects.map((project, index) => (
           <div key={index} className="list-item">
-            <div className="side-by-side">
-              <div className="left">
-                <div className="one">
-                  <Link to={`/details/${project.organizationId}/${project.id}`}>
-                    <img src={`./media/images/${project.image}`} alt="" />
-                  </Link>
-                </div>
-              </div>
-              <div className="right">
-                <h4>Støttet af:</h4>
-                <a href={project.url} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={"./media/logos/supporters/" + project.logo}
-                    alt=""
-                  />
-                </a>
-              </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
-                <Link to={`/details/${project.organizationId}/${project.id}`}>
-                  <h4>{project.title}</h4>
-                  <div>{project.description}</div>
-                </Link>
-              </div>
-            </div>
+            <ProjectInformation project={project} />
           </div>
         ))}
       {filteredProjects.length === 0 && props.selectedCategory && (
@@ -192,50 +166,6 @@ const container = () => css`
 
     svg {
       padding-right: 1rem;
-    }
-  }
-
-  .list-item {
-    background-color: white;
-    border-top: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
-    margin-bottom: -1px;
-
-    .side-by-side {
-      display: flex;
-
-      .left {
-        width: calc(60% - 2rem);
-        overflow-y: hidden;
-        padding: 1rem 1rem 1.5rem 1rem;
-
-        img {
-          width: 100%;
-        }
-      }
-
-      .right {
-        text-align: center;
-        width: calc(40% - 2rem);
-        padding: 1rem 1rem 1.5rem 1rem;
-
-        h4 {
-          padding-bottom: 1rem;
-        }
-
-        img {
-          width: 70%;
-        }
-      }
-    }
-
-    .description {
-      padding: 0 1rem 1.5rem 1rem;
-      line-height: 1.2rem;
-
-      @media all and (min-width: 769px) {
-        width: calc(60% - 2rem);
-      }
     }
   }
 

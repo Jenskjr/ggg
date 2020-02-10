@@ -125,6 +125,7 @@ const container = () => css `
 
   @media all and (min-width: 993px) {
     border: 1px solid lightgrey;
+    max-width: 800px;
   }
 `;
 

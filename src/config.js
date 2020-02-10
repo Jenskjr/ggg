@@ -1,6 +1,6 @@
 export const getBaseUrl = () => {
-    const env = "development";
-    //const env = "production";
+    //const env = "development";
+    const env = "production";
 
     if (env === "development") {
         return "http://localhost:8081";

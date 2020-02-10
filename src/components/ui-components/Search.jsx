@@ -34,7 +34,6 @@ const container = () => css`
   padding: 0;
   width: 100%;
   display: flex;
-  border: 1px solid lightgrey;
   box-sizing: border-box;
 
   input[type="text"] {
@@ -44,6 +43,7 @@ const container = () => css`
     padding: 0.75rem 0.5rem;
     box-sizing: border-box;
     font-size: 1.2rem;
+    border: 1px solid lightgrey;
   }
 `;
 

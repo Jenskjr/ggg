@@ -8,6 +8,7 @@ import { getBaseUrl } from "../../config";
 import { setSearch } from "../../actions/actions.js";
 // css
 import { css } from "emotion";
+import { ChevronLeftIcon } from "mdi-react";
 // components
 import TextInput from "../ui-components/TextInput";
 import RadioInput from "../ui-components/RadioInput";
@@ -16,11 +17,9 @@ import FormButton from "../ui-components/FormButton";
 import Checkbox from "../ui-components/CheckboxInput";
 import Checkout from "../checkout/Checkout";
 import InfoBox from "../ui-components/InfoBox";
-import { ChevronLeftIcon } from "mdi-react";
 
 const DetailsView = props => {
   const [thisContent, setThisContent] = useState({ project: {} });
-  const [project, setProject] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [formData, setFormData] = useState({
     fradrag: true,
@@ -35,6 +34,7 @@ const DetailsView = props => {
     props.resetSearchString();
     props.setSearch(false);
     splitUrl();
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,7 +92,7 @@ const DetailsView = props => {
           </div>
           <div>
             <Link to={`/detailed-list/${thisContent.organizationId}`}>
-              <div className="overview">
+              <div className="overview link-to-detailed-list-view">
                 <ChevronLeftIcon />
                 <img
                   src={`./media/images/${thisContent.project.image}`}
@@ -104,17 +104,25 @@ const DetailsView = props => {
           </div>
           <div className="container">
             <div className="top">
-              <div className="left">
-                <h4>{`${thisContent.project.organization} ${thisContent.project.title}`}</h4>
-                {thisContent.project.description}
-              </div>
-              <div className="right">
-                <h4>Støttet af:</h4>
+              <div className="floating-image">
                 <img
                   src={`./media/logos/supporters/${thisContent.project.logo}`}
                   alt=""
                 />
-                <p>Fordbler beløbet</p>
+                <h4>Fordobler beløbet</h4>
+              </div>
+              <div className="description">
+                <h4>{thisContent.project.title}</h4>
+                {thisContent.project &&
+                thisContent.project.detailedDescription ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: thisContent.project.detailedDescription
+                    }}
+                  ></div>
+                ) : (
+                  thisContent.project.description
+                )}
               </div>
             </div>
 
@@ -255,26 +263,45 @@ const container = () => css`
     }
   }
 
+  .link-to-detailed-list-view {
+    padding-left: 2rem;
+  }
+
   .container {
     background-color: white;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
 
     .top {
-      display: flex;
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       background-color: white;
+      margin-bottom: 1.5rem;
 
-      .left {
-        max-width: 66%;
+      .description {
         line-height: 1.2rem;
       }
 
+      .floating-image {
+        float: right;
+        width: 30%;
+        text-align: center;
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+        margin: 0.5rem 0 1rem 1rem;
+        border: 1px solid lightgrey;
+
+        img {
+          width: 70%;
+        }
+      }
+
       .right {
+        display: flex;
         margin-left: 1rem;
         width: 33%;
+        text-align: center;
         img {
-          width: 100%;
+          max-width: 70%;
+          padding-top: 1rem;
         }
       }
     }
